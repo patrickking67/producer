@@ -13,22 +13,21 @@
       "type": "http",
       "url": "https://mcp-gateway-external-pilot.spotify.net/mcp"
     },
-    "apple-music": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "@kazuph/mcp-apple-music"]
-    },
     "google-drive": {
       "type": "http",
-      "url": "https://mcp.google.com/drive"
+      "url": "https://drivemcp.googleapis.com/mcp/v1"
     },
     "gmail": {
       "type": "http",
-      "url": "https://mcp.google.com/gmail"
+      "url": "https://gmailmcp.googleapis.com/mcp/v1"
     },
     "google-calendar": {
       "type": "http",
-      "url": "https://mcp.google.com/calendar"
+      "url": "https://calendarmcp.googleapis.com/mcp/v1"
+    },
+    "canva": {
+      "type": "http",
+      "url": "https://mcp.canva.com/mcp"
     }
   }
 }

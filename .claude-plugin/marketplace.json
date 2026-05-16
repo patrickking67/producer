@@ -12,7 +12,7 @@
       "name": "producer",
       "source": "./plugins/producer",
       "version": "1.0.0",
-      "description": "Producer companion for Ableton Live. Review tracks, brainstorm, write MIDI, design sounds, dial in mixes, prep stems and releases, browse your library, and drive Live directly. Wired into Ableton, Splice, Spotify, Apple Music, Google Drive, Gmail, and Calendar.",
+      "description": "Producer companion for Ableton Live. Review tracks, brainstorm, write MIDI, design sounds, dial in mixes, prep stems and releases, browse your library, and drive Live directly. Wired into Ableton, Splice, Spotify, Google Drive, Gmail, Google Calendar, and Canva.",
       "homepage": "https://patrickking67.github.io/producer/",
       "license": "MIT",
       "authors": [
@@ -30,10 +30,11 @@
         "mastering",
         "splice",
         "spotify",
-        "apple-music",
         "google-drive",
         "gmail",
-        "calendar"
+        "google-calendar",
+        "canva",
+        "ableton-knowledge"
       ]
     }
   ]

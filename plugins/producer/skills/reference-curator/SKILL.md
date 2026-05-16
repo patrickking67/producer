@@ -1,6 +1,6 @@
 ---
 name: reference-curator
-description: Build a reference playlist across Spotify and Apple Music for a vibe, mix target, arrangement model, or track in progress. Tags each reference with BPM, key, integrated LUFS, and what to listen for. Use when the user says "find references for", "make me a reference playlist", "what should this sound like", "tracks like X", "/reference", or wants a curated A/B set.
+description: Build a reference playlist on Spotify for a vibe, mix target, arrangement model, or track in progress. Tags each reference with BPM, key, integrated LUFS, and what to listen for. Use when the user says "find references for", "make me a reference playlist", "what should this sound like", "tracks like X", "/reference", or wants a curated A/B set.
 argument-hint: "<vibe, genre, or 'like this track'>"
 ---
 
@@ -11,7 +11,7 @@ The goal isn't 8 random vibey tracks. It's 8 tracks that each *teach the user so
 ## Method
 
 1. **Clarify scope** in one question if missing: are we matching mix, vibe, arrangement, or sound palette?
-2. **Pull 8–12 candidates** across both Spotify and Apple Music (use both — coverage and curation differ)
+2. **Pull 8–12 candidates** via Spotify `search` + `fetch_tracks`
 3. **Tag every track** with the row below
 4. **Group into 3–4 buckets** (e.g. "for the drop energy", "for the bass tone", "for the breakdown")
 5. **Save a playlist** on the user's preferred platform; back up the list to Google Drive as a markdown file
@@ -41,7 +41,6 @@ Each bucket = 2–3 tracks that solve the same problem:
 
 After approval:
 - Spotify: `create_playlist` named `"<track> — references"`, then `add_to_library` each match
-- Apple Music: create a playlist via the Apple Music MCP, same naming
 - Save the curator notes + the bucket structure to `~/Music/Producer/references/<track>_references.md` *and* upload to Google Drive at `Producer/References/`
 
 ## Workflow with mix-coach
@@ -63,10 +62,9 @@ When called from `brainstorm`:
 
 ## Connectors
 - **Spotify**: `search`, `fetch_tracks` (audio features), `create_playlist`, `add_to_library`, `get_currently_playing`
-- **Apple Music**: search, playlist creation, "now playing"
 - **Google Drive**: upload the curator notes markdown
 - **Gmail**: optionally email the playlist link to a collaborator (the user names the recipient)
-- **Splice**: if a reference uses an iconic sample, `describe_a_sound` to find a related one
+- **Splice**: if a reference uses an iconic sample, `search` / `prompt_to_stack` to find a related one
 
 ## Tone
 Curatorial. If two references in the same bucket are redundant, kill one.
