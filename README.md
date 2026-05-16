@@ -23,7 +23,7 @@
 
 ---
 
-By **Patrick King & Aden Mina**.
+Created by **Patrick King** for **Aden Mina** (producer) to use.
 
 This repo is a Claude Code **marketplace** that ships two surfaces of the same product:
 

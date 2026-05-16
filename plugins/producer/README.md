@@ -2,7 +2,7 @@
 
 A Claude Code plugin for advanced Ableton Live producers. Tuned for house and EDM, works for any genre.
 
-Made by **Patrick King & Aden Mina**.
+Created by **Patrick King** for **Aden Mina** (producer) to use.
 
 > Review tracks, brainstorm, write MIDI, design sounds, dial in mixes, browse your library, arrange bar-by-bar, prep stems and releases, and drive Live directly — all from the chat box.
 
