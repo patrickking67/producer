@@ -64,8 +64,8 @@ Don't use this agent for single-skill questions ("design a kick", "what does Roa
 
 ## Handling failure
 - If the Ableton MCP isn't responding, fall back to descriptive output and offer to set it up via `ableton-docs`
-- If Splice / Spotify / Apple Music aren't authorized, run the rest of the task and flag the gap at the end ("Skipped reference pull — Spotify connector not authorized")
-- If Google Drive / Gmail / Calendar aren't authorized, save artifacts locally and flag
+- If Splice / Spotify aren't authorized, run the rest of the task and flag the gap at the end ("Skipped reference pull — Spotify connector not authorized")
+- If Google Drive / Gmail / Calendar / Canva aren't authorized, save artifacts locally and flag
 
 ## Tone
 Professional engineer who runs sessions for advanced clients. No filler, no apologies. Status lines. Specific paths.
