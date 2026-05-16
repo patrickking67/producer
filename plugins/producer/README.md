@@ -12,8 +12,8 @@ Made by **Patrick King & Aden Mina**.
 
 In Claude Code:
 ```
-/plugin marketplace add patrickking67/ableton
-/plugin install producer@ableton
+/plugin marketplace add patrickking67/producer
+/plugin install producer@producer
 ```
 
 That's it. The 6 cloud MCPs (Splice, Spotify, Apple Music, Google Drive, Gmail, Calendar) will OAuth on first use. Install the Ableton MCP separately — see [CONNECTORS.md](CONNECTORS.md#1-ableton-mcp).
@@ -21,8 +21,8 @@ That's it. The 6 cloud MCPs (Splice, Spotify, Apple Music, Google Drive, Gmail, 
 ### From this repo
 
 ```
-/plugin marketplace add https://github.com/patrickking67/ableton.git
-/plugin install producer@ableton
+/plugin marketplace add https://github.com/patrickking67/producer.git
+/plugin install producer@producer
 ```
 
 ## Slash commands

@@ -1,37 +1,60 @@
-# Ableton
+<p align="center">
+  <img src="assets/producer-logo.svg" alt="Producer" width="320">
+</p>
 
-A production toolkit for Ableton Live — chat-side + in-Live.
+<p align="center">
+  <strong>An Ableton Live production toolkit — chat-side and in-Live.</strong><br>
+  Review tracks, brainstorm, write MIDI, design sounds, dial in mixes, browse your library, arrange, prep stems and releases — and drive Ableton Live directly.
+</p>
 
-Made by **Patrick King & Aden Mina**.
+<p align="center">
+  <a href="https://github.com/patrickking67/producer/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-black?style=flat-square" alt="MIT License"></a>
+  <img src="https://img.shields.io/badge/Claude%20Code-plugin-black?style=flat-square" alt="Claude Code plugin">
+  <img src="https://img.shields.io/badge/Ableton%20Live-12-black?style=flat-square" alt="Ableton Live 12">
+  <img src="https://img.shields.io/badge/Max%20for%20Live-device-black?style=flat-square" alt="Max for Live">
+</p>
 
-This repo is a Claude Code **marketplace** that ships two things:
+<p align="center">
+  <a href="https://patrickking67.github.io/producer/"><strong>Website</strong></a> ·
+  <a href="plugins/producer/">Plugin</a> ·
+  <a href="max-for-live/">Max for Live device</a> ·
+  <a href="plugins/producer/CONNECTORS.md">Connectors</a>
+</p>
+
+---
+
+By **Patrick King & Aden Mina**.
+
+This repo is a Claude Code **marketplace** that ships two surfaces of the same product:
 
 | Component | What it is | Where it lives |
 |---|---|---|
-| **Producer** (plugin) | Claude Code plugin: 12 skills + 12 slash commands + 1 agent + 7 MCPs (Ableton, Splice, Spotify, Apple Music, Google Drive, Gmail, Calendar). Reviews, brainstorms, writes MIDI, designs sounds, mixes, browses your library, arranges, preps stems and releases, and drives Live directly. | [`plugins/producer/`](plugins/producer/) |
-| **MINA Claude** (Max for Live device) | A Max for Live MIDI Effect that calls Claude from inside Live to generate drum/melody/chord patterns into the highlighted clip. | [`max-for-live/`](max-for-live/) |
+| **Producer** (Claude Code plugin) | 12 skills + 12 slash commands + 1 agent + 7 MCPs (Ableton, Splice, Spotify, Apple Music, Google Drive, Gmail, Calendar). Reviews, brainstorms, writes MIDI, designs sounds, mixes, browses your library, arranges, preps stems and releases, and drives Live directly. | [`plugins/producer/`](plugins/producer/) |
+| **Producer for Live** (Max for Live device) | A Max for Live MIDI Effect that calls the Claude API from inside Live to generate drum/melody/chord patterns into the highlighted clip. | [`max-for-live/`](max-for-live/) |
 
 ## Install (Producer plugin)
 
 In Claude Code:
 
 ```text
-/plugin marketplace add patrickking67/ableton
-/plugin install producer@ableton
+/plugin marketplace add patrickking67/producer
+/plugin install producer@producer
 ```
 
 Or via full URL:
 
 ```text
-/plugin marketplace add https://github.com/patrickking67/ableton.git
-/plugin install producer@ableton
+/plugin marketplace add https://github.com/patrickking67/producer.git
+/plugin install producer@producer
 ```
 
 The marketplace manifest is at [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json). The 6 cloud MCPs (Splice, Spotify, Apple Music, Google Drive, Gmail, Calendar) OAuth on first use. Install the Ableton MCP separately — see [`plugins/producer/CONNECTORS.md`](plugins/producer/CONNECTORS.md#1-ableton-mcp).
 
-## Install (MINA Claude — the Max for Live device)
+Works in **Claude Code on the web** (cowork) and in the local CLI. Cloud MCPs OAuth on first use either way; the Ableton MCP only runs locally (it talks to Live over the Remote Script).
 
-Follow the step-by-step in [`max-for-live/README.md`](max-for-live/README.md). You'll drop three JS files plus a `.amxd` patch into `~/Music/Ableton/User Library/Presets/MIDI Effects/Max MIDI Effect/MINA Claude/`.
+## Install (Producer for Live — the Max for Live device)
+
+Follow the step-by-step in [`max-for-live/README.md`](max-for-live/README.md). You'll drop three JS files plus a `.amxd` patch into `~/Music/Ableton/User Library/Presets/MIDI Effects/Max MIDI Effect/Producer/`.
 
 ## What's in the Producer plugin
 
@@ -65,9 +88,14 @@ Auto-declared in [`.mcp.json`](plugins/producer/.mcp.json): **Ableton**, **Splic
 ## Repo layout
 
 ```
-ableton/
+producer/
 ├── .claude-plugin/
 │   └── marketplace.json          ← marketplace manifest
+├── assets/
+│   ├── producer-logo.svg         ← wordmark + mark (monochrome)
+│   └── producer-mark.svg         ← icon only (square)
+├── docs/
+│   └── index.html                ← GitHub Pages landing site (Tailwind)
 ├── plugins/
 │   └── producer/                 ← the plugin
 │       ├── .claude-plugin/plugin.json
@@ -79,7 +107,7 @@ ableton/
 │       └── agents/               ← ableton-engineer
 ├── max-for-live/                 ← the .amxd device files
 │   ├── README.md
-│   ├── mina_claude.js
+│   ├── producer.js
 │   ├── get_context.js
 │   └── write_midi.js
 ├── dist/
