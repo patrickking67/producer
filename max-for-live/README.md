@@ -1,8 +1,15 @@
 # MINA Claude — Max for Live Device Setup Guide
 
+A companion Max for Live device for the [Producer plugin](../plugins/producer/README.md). Sits inside Ableton Live, reads your session context in real time, and uses Claude to generate MIDI patterns (drums, melodies, chords) and suggest what to do next — all without leaving Ableton.
+
+> Producer is the chat-side toolkit. MINA Claude is the in-Live device.
+> Use them together: Producer brainstorms, writes, and ships; MINA Claude generates inside the running set.
+
+By **Patrick King & Aden Mina**.
+
 ## What you're building
-A Max for Live device that sits inside Ableton Live. It reads your session 
-context in real time and uses Claude AI to generate MIDI patterns (drums, 
+A Max for Live device that sits inside Ableton Live. It reads your session
+context in real time and uses Claude AI to generate MIDI patterns (drums,
 melodies, chords) and suggest what to do next — all without leaving Ableton.
 
 ---

@@ -1,0 +1,34 @@
+{
+  "mcpServers": {
+    "ableton": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["ableton-mcp"]
+    },
+    "splice": {
+      "type": "http",
+      "url": "https://mcp.splice.com/mcp"
+    },
+    "spotify": {
+      "type": "http",
+      "url": "https://mcp-gateway-external-pilot.spotify.net/mcp"
+    },
+    "apple-music": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@kazuph/mcp-apple-music"]
+    },
+    "google-drive": {
+      "type": "http",
+      "url": "https://mcp.google.com/drive"
+    },
+    "gmail": {
+      "type": "http",
+      "url": "https://mcp.google.com/gmail"
+    },
+    "google-calendar": {
+      "type": "http",
+      "url": "https://mcp.google.com/calendar"
+    }
+  }
+}
