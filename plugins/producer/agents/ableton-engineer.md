@@ -1,13 +1,7 @@
 ---
 name: ableton-engineer
-description: Autonomous engineer for complex, multi-step Ableton workflows that touch the running Live set plus external services. Use when the user wants an end-to-end task done — e.g. "build me a tech house starter set with kicks, bass preset, chord stab, and a drum loop", "prep this track for release across streaming and Beatport", "compare my current track to 5 references and write the mix moves". This agent owns the whole task: reads session state, calls the right Producer skills in order, drives Live, files artifacts, reports back with a single status line.
-tools:
-  - Bash
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
+description: 'Autonomous engineer for complex, multi-step Ableton workflows that touch the running Live set plus external services. Use when the user wants an end-to-end task done — e.g. "build me a tech house starter set with kicks, bass preset, chord stab, and a drum loop", "prep this track for release across streaming and Beatport", "compare my current track to 5 references and write the mix moves". This agent owns the whole task — reads session state, calls the right Producer skills in order, drives Live, files artifacts, reports back with a single status line.'
+tools: Bash, Read, Write, Edit, Grep, Glob
 ---
 
 # Ableton Engineer
