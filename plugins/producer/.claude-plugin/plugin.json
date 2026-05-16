@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "producer",
+  "version": "1.0.0",
+  "description": "Producer companion for Ableton Live. Review tracks, brainstorm, write MIDI, design sounds, dial in mixes, prep stems and releases, browse your library, and drive Live directly. Wired into Ableton, Splice, Spotify, Apple Music, Google Drive, Gmail, and Calendar.",
+  "authors": [
+    { "name": "Patrick King" },
+    { "name": "Aden Mina" }
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/patrickking67/ableton",
+  "repository": "https://github.com/patrickking67/ableton",
+  "keywords": [
+    "ableton",
+    "ableton-live",
+    "music-production",
+    "house",
+    "edm",
+    "midi",
+    "sound-design",
+    "mixing",
+    "mastering",
+    "splice",
+    "spotify",
+    "apple-music",
+    "google-drive",
+    "gmail",
+    "calendar"
+  ],
+  "commands": "./commands",
+  "skills": "./skills",
+  "agents": "./agents"
+}
