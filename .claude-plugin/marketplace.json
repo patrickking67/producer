@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "description": "Producer — Ableton Live production toolkit. Chat-side Claude Code plugin + in-Live Max for Live device.",
   "owner": {
-    "name": "Patrick King",
-    "url": "https://github.com/patrickking67"
+    "name": "Patrick King"
   },
   "plugins": [
     {
@@ -14,10 +13,11 @@
       "version": "1.0.0",
       "description": "Producer companion for Ableton Live. Review tracks, brainstorm, write MIDI, design sounds, dial in mixes, prep stems and releases, browse your library, and drive Live directly. Wired into Ableton, Splice, Spotify, Google Drive, Gmail, Google Calendar, and Canva.",
       "homepage": "https://patrickking67.github.io/producer/",
+      "repository": "https://github.com/patrickking67/producer",
       "license": "MIT",
-      "authors": [
-        { "name": "Patrick King" }
-      ],
+      "author": {
+        "name": "Patrick King"
+      },
       "keywords": [
         "ableton",
         "ableton-live",

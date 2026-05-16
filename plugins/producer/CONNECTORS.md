@@ -14,7 +14,7 @@ The Producer plugin auto-declares 7 MCP servers in `.mcp.json`. Six are cloud HT
 | **Google Calendar** | HTTP (cloud) | Optional | Yes | `release-prep`, `ableton-engineer` |
 | **Canva** | HTTP (cloud) | Optional | Yes | `release-prep`, `brainstorm` (artwork, moodboards) |
 
-Plus one separate Desktop Extension recommended for Claude Desktop / Claude.ai users:
+Plus one separate Desktop Extension recommended for Claude users:
 
 | Extension | Type | Used by |
 |---|---|---|
@@ -95,6 +95,12 @@ Not declared in `.mcp.json` because it's a Claude Desktop Extension, not an HTTP
 2. **Drop the plugin into Claude Code** — the remaining 6 cloud MCPs are declared in `.mcp.json` and OAuth on first use.
 3. **Authorize what you need.** Splice and Canva are skippable; Spotify / Drive / Gmail / Calendar unlock different workflows.
 4. **Add Ableton Knowledge** in Claude Desktop if you want richer manual lookups.
+
+## Use with Codex CLI
+
+Codex doesn't have a plugin marketplace, but it does speak MCP — so the 7 connectors above (which carry most of the actual capability) all work in Codex too. The slash commands and skills are Claude Code-specific and don't port; in Codex you just describe what you want and Codex calls the MCPs directly.
+
+Paste the contents of [`codex-config.toml`](codex-config.toml) into `~/.codex/config.toml` (or use `codex mcp add --url …` for each cloud MCP to let Codex run the OAuth flow). Requires Codex CLI with streamable HTTP MCP support.
 
 ## Routing rules the skills follow
 
