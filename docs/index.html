@@ -134,7 +134,8 @@
       </a>
       <div class="hidden md:flex items-center gap-6 text-sm">
         <a href="#install" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">Install</a>
-        <a href="#claude-app" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">Claude.ai</a>
+        <a href="#claude-app" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">Claude</a>
+        <a href="#codex" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">Codex</a>
         <a href="#commands" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">Commands</a>
         <a href="#connectors" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">Connectors</a>
         <a href="#for-live" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">For Live</a>
@@ -170,7 +171,7 @@
         </a>
       </div>
       <p class="mt-8 text-sm opacity-60 animate-fade-up" style="animation-delay:.6s">
-        Created by <strong>Patrick King</strong> for <strong>Aden Mina</strong> (producer) to use. MIT licensed.
+        Created by <strong>Patrick King</strong>. MIT licensed.
       </p>
     </div>
   </section>
@@ -235,13 +236,13 @@
   <section id="claude-app" class="border-b border-black/10 dark:border-white/10">
     <div class="max-w-6xl mx-auto px-6 py-20">
       <div class="flex items-baseline gap-3">
-        <span data-reveal class="text-xs font-mono uppercase tracking-widest opacity-60">For Claude.ai & Claude Desktop</span>
+        <span data-reveal class="text-xs font-mono uppercase tracking-widest opacity-60">For the Claude app</span>
       </div>
-      <h2 data-reveal class="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight">Add the connectors inside the Claude app.</h2>
-      <p data-reveal class="mt-3 opacity-70 max-w-2xl">The Producer plugin itself runs in Claude Code (CLI or web). The MCP connectors it relies on are also addable directly in Claude.ai or Claude Desktop — useful if you want the toolkit's connectors in your normal chat surface too.</p>
+      <h2 data-reveal class="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight">Add the connectors inside Claude.</h2>
+      <p data-reveal class="mt-3 opacity-70 max-w-2xl">The Producer plugin itself runs in Claude Code (CLI or web). The MCP connectors it relies on are also addable directly in Claude (web or desktop) — useful if you want the toolkit's connectors in your normal chat surface too.</p>
 
       <ol data-reveal class="mt-8 space-y-3 text-sm md:text-base opacity-90 list-decimal list-inside marker:opacity-60">
-        <li>Open <strong>Claude.ai</strong> (web) or <strong>Claude Desktop</strong>.</li>
+        <li>Open <strong>Claude</strong> (web or desktop).</li>
         <li>Go to <strong>Settings → Connectors</strong>.</li>
         <li>Click <strong>"Add custom connector"</strong> (or pick from the directory for the ones marked "official").</li>
         <li>Paste the connector URL below and authenticate.</li>
@@ -308,6 +309,48 @@
 
       <p data-reveal class="mt-8 text-sm opacity-70 max-w-3xl">
         For full session control (drive Live: BPM, tracks, devices, clips) you also need the <strong>Ableton MCP</strong> (local stdio, by <a class="underline underline-offset-4" href="https://github.com/ahujasid/ableton-mcp">@ahujasid</a>). Setup steps in <a class="underline underline-offset-4" href="https://github.com/patrickking67/producer/blob/main/plugins/producer/CONNECTORS.md#1-ableton-mcp">CONNECTORS.md → Ableton MCP</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- codex -->
+  <section id="codex" class="border-b border-black/10 dark:border-white/10">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="flex items-baseline gap-3">
+        <span data-reveal class="text-xs font-mono uppercase tracking-widest opacity-60">For Codex CLI</span>
+      </div>
+      <h2 data-reveal class="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight">Same connectors, in Codex.</h2>
+      <p data-reveal class="mt-3 opacity-70 max-w-2xl">Codex doesn't have a plugin marketplace, but it does speak MCP. Paste this block into <code class="font-mono text-xs px-1.5 py-0.5 rounded bg-ink/5 dark:bg-paper/5">~/.codex/config.toml</code> and Codex gets the same 7-connector toolkit. The slash commands and skills are Claude Code-specific — in Codex you just describe what you want.</p>
+
+      <div data-reveal class="mt-10 rounded-2xl border border-ink/15 dark:border-paper/15 overflow-hidden">
+        <div class="px-5 py-3 border-b border-ink/15 dark:border-paper/15 text-xs font-mono uppercase tracking-widest opacity-60">~/.codex/config.toml</div>
+        <pre class="px-5 py-6 font-mono text-xs md:text-sm leading-relaxed overflow-x-auto bg-ink/[0.02] dark:bg-paper/[0.02]"><code># Local — drive Ableton Live directly
+[mcp_servers.ableton]
+command = "uvx"
+args = ["ableton-mcp"]
+
+# Cloud — OAuth on first use
+[mcp_servers.splice]
+url = "https://mcp.splice.com/mcp"
+
+[mcp_servers.spotify]
+url = "https://mcp-gateway-external-pilot.spotify.net/mcp"
+
+[mcp_servers.google_drive]
+url = "https://drivemcp.googleapis.com/mcp/v1"
+
+[mcp_servers.gmail]
+url = "https://gmailmcp.googleapis.com/mcp/v1"
+
+[mcp_servers.google_calendar]
+url = "https://calendarmcp.googleapis.com/mcp/v1"
+
+[mcp_servers.canva]
+url = "https://mcp.canva.com/mcp"</code></pre>
+      </div>
+
+      <p data-reveal class="mt-6 text-sm opacity-70 max-w-3xl">
+        Or run <code class="font-mono text-xs px-1.5 py-0.5 rounded bg-ink/5 dark:bg-paper/5">codex mcp add --url &lt;url&gt; &lt;name&gt;</code> for each cloud MCP to register interactively. Requires a Codex CLI with streamable HTTP MCP support. Full snippet: <a class="underline underline-offset-4" href="https://github.com/patrickking67/producer/blob/main/plugins/producer/codex-config.toml">plugins/producer/codex-config.toml</a>.
       </p>
     </div>
   </section>
@@ -451,7 +494,7 @@
           <rect x="8"  y="46" width="44" height="8" rx="1"/>
         </svg>
         <span class="font-extrabold tracking-tight">Producer</span>
-        <span class="text-sm opacity-60">· created by Patrick King for Aden Mina (producer) · MIT</span>
+        <span class="text-sm opacity-60">· created by Patrick King · MIT © 2026</span>
       </div>
       <div class="flex items-center gap-5 text-sm">
         <a href="https://github.com/patrickking67/producer" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">GitHub</a>

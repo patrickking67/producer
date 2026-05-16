@@ -1,0 +1,40 @@
+# Producer — Codex CLI MCP config
+#
+# Paste these into ~/.codex/config.toml (or merge with your existing config)
+# to give Codex the same 7-connector toolkit Producer wires into Claude Code.
+#
+# Codex doesn't have a plugin marketplace, so the slash commands and skills
+# don't port — but the MCPs (which carry most of the actual capability) all
+# work in Codex via the streamable HTTP transport. In Codex you describe
+# what you want and Codex calls the MCPs directly.
+#
+# Requires Codex CLI with streamable HTTP MCP support
+# (codex mcp add --url …). For cloud MCPs you can either paste the block
+# below and let Codex prompt for OAuth on first call, or run
+# `codex mcp add --url <url> <name>` to register interactively.
+
+# --- Local: drive Ableton Live directly ----------------------------------
+# Requires `uv tool install ableton-mcp` + the Live Remote Script setup.
+# See plugins/producer/CONNECTORS.md → "1. Ableton MCP".
+[mcp_servers.ableton]
+command = "uvx"
+args = ["ableton-mcp"]
+
+# --- Cloud: OAuth on first use -------------------------------------------
+[mcp_servers.splice]
+url = "https://mcp.splice.com/mcp"
+
+[mcp_servers.spotify]
+url = "https://mcp-gateway-external-pilot.spotify.net/mcp"
+
+[mcp_servers.google_drive]
+url = "https://drivemcp.googleapis.com/mcp/v1"
+
+[mcp_servers.gmail]
+url = "https://gmailmcp.googleapis.com/mcp/v1"
+
+[mcp_servers.google_calendar]
+url = "https://calendarmcp.googleapis.com/mcp/v1"
+
+[mcp_servers.canva]
+url = "https://mcp.canva.com/mcp"
