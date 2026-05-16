@@ -134,6 +134,7 @@
       </a>
       <div class="hidden md:flex items-center gap-6 text-sm">
         <a href="#install" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">Install</a>
+        <a href="#claude-app" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">Claude.ai</a>
         <a href="#commands" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">Commands</a>
         <a href="#connectors" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">Connectors</a>
         <a href="#for-live" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">For Live</a>
@@ -225,7 +226,88 @@
       </div>
 
       <p data-reveal class="mt-6 text-sm opacity-70 max-w-2xl">
-        The 6 cloud MCPs (Splice, Spotify, Apple Music, Google Drive, Gmail, Calendar) OAuth on first use. The Ableton MCP runs locally — install it separately, instructions in <a class="underline underline-offset-4" href="https://github.com/patrickking67/producer/blob/main/plugins/producer/CONNECTORS.md">CONNECTORS.md</a>.
+        The 6 cloud MCPs (Splice, Spotify, Google Drive, Gmail, Google Calendar, Canva) OAuth on first use. The Ableton MCP runs locally — install it separately, instructions in <a class="underline underline-offset-4" href="https://github.com/patrickking67/producer/blob/main/plugins/producer/CONNECTORS.md">CONNECTORS.md</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- claude app install -->
+  <section id="claude-app" class="border-b border-black/10 dark:border-white/10">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="flex items-baseline gap-3">
+        <span data-reveal class="text-xs font-mono uppercase tracking-widest opacity-60">For Claude.ai & Claude Desktop</span>
+      </div>
+      <h2 data-reveal class="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight">Add the connectors inside the Claude app.</h2>
+      <p data-reveal class="mt-3 opacity-70 max-w-2xl">The Producer plugin itself runs in Claude Code (CLI or web). The MCP connectors it relies on are also addable directly in Claude.ai or Claude Desktop — useful if you want the toolkit's connectors in your normal chat surface too.</p>
+
+      <ol data-reveal class="mt-8 space-y-3 text-sm md:text-base opacity-90 list-decimal list-inside marker:opacity-60">
+        <li>Open <strong>Claude.ai</strong> (web) or <strong>Claude Desktop</strong>.</li>
+        <li>Go to <strong>Settings → Connectors</strong>.</li>
+        <li>Click <strong>"Add custom connector"</strong> (or pick from the directory for the ones marked "official").</li>
+        <li>Paste the connector URL below and authenticate.</li>
+        <li>In Claude Desktop, install the <strong>Ableton Knowledge</strong> Desktop Extension separately (Settings → Extensions).</li>
+      </ol>
+
+      <div class="grid md:grid-cols-2 gap-3 mt-10">
+        <div data-reveal class="card-lift rounded-xl border border-ink/15 dark:border-paper/15 p-5">
+          <div class="flex items-center justify-between gap-3">
+            <div class="font-bold">Splice</div>
+            <span class="text-[10px] font-mono uppercase tracking-widest opacity-60">official</span>
+          </div>
+          <p class="mt-1 text-sm opacity-80">Sound search, stack building, downloads.</p>
+          <code class="mt-3 block font-mono text-xs opacity-80 break-all">https://mcp.splice.com/mcp</code>
+        </div>
+        <div data-reveal class="card-lift rounded-xl border border-ink/15 dark:border-paper/15 p-5">
+          <div class="flex items-center justify-between gap-3">
+            <div class="font-bold">Spotify</div>
+            <span class="text-[10px] font-mono uppercase tracking-widest opacity-60">official</span>
+          </div>
+          <p class="mt-1 text-sm opacity-80">References, audio features, playlists.</p>
+          <code class="mt-3 block font-mono text-xs opacity-80 break-all">https://mcp-gateway-external-pilot.spotify.net/mcp</code>
+        </div>
+        <div data-reveal class="card-lift rounded-xl border border-ink/15 dark:border-paper/15 p-5">
+          <div class="flex items-center justify-between gap-3">
+            <div class="font-bold">Google Drive</div>
+            <span class="text-[10px] font-mono uppercase tracking-widest opacity-60">by Google</span>
+          </div>
+          <p class="mt-1 text-sm opacity-80">Search, read, upload stems / references / masters.</p>
+          <code class="mt-3 block font-mono text-xs opacity-80 break-all">https://drivemcp.googleapis.com/mcp/v1</code>
+        </div>
+        <div data-reveal class="card-lift rounded-xl border border-ink/15 dark:border-paper/15 p-5">
+          <div class="flex items-center justify-between gap-3">
+            <div class="font-bold">Gmail</div>
+            <span class="text-[10px] font-mono uppercase tracking-widest opacity-60">by Google</span>
+          </div>
+          <p class="mt-1 text-sm opacity-80">Draft promo, label, and mastering hand-off emails.</p>
+          <code class="mt-3 block font-mono text-xs opacity-80 break-all">https://gmailmcp.googleapis.com/mcp/v1</code>
+        </div>
+        <div data-reveal class="card-lift rounded-xl border border-ink/15 dark:border-paper/15 p-5">
+          <div class="flex items-center justify-between gap-3">
+            <div class="font-bold">Google Calendar</div>
+            <span class="text-[10px] font-mono uppercase tracking-widest opacity-60">by Google</span>
+          </div>
+          <p class="mt-1 text-sm opacity-80">Schedule release-day timeline (−28 / −21 / −14 / −7 / 0).</p>
+          <code class="mt-3 block font-mono text-xs opacity-80 break-all">https://calendarmcp.googleapis.com/mcp/v1</code>
+        </div>
+        <div data-reveal class="card-lift rounded-xl border border-ink/15 dark:border-paper/15 p-5">
+          <div class="flex items-center justify-between gap-3">
+            <div class="font-bold">Canva</div>
+            <span class="text-[10px] font-mono uppercase tracking-widest opacity-60">official</span>
+          </div>
+          <p class="mt-1 text-sm opacity-80">Cover art templates, release moodboards, exports.</p>
+          <code class="mt-3 block font-mono text-xs opacity-80 break-all">https://mcp.canva.com/mcp</code>
+        </div>
+        <div data-reveal class="card-lift md:col-span-2 rounded-xl border border-ink/15 dark:border-paper/15 p-5">
+          <div class="flex items-center justify-between gap-3">
+            <div class="font-bold">Ableton Knowledge</div>
+            <span class="text-[10px] font-mono uppercase tracking-widest opacity-60">desktop extension</span>
+          </div>
+          <p class="mt-1 text-sm opacity-80">Local search across the Live, Push, Move and Note manuals, the knowledge base, and video transcripts. Runs entirely on your machine. Install in <strong>Claude Desktop → Settings → Extensions</strong>.</p>
+        </div>
+      </div>
+
+      <p data-reveal class="mt-8 text-sm opacity-70 max-w-3xl">
+        For full session control (drive Live: BPM, tracks, devices, clips) you also need the <strong>Ableton MCP</strong> (local stdio, by <a class="underline underline-offset-4" href="https://github.com/ahujasid/ableton-mcp">@ahujasid</a>). Setup steps in <a class="underline underline-offset-4" href="https://github.com/patrickking67/producer/blob/main/plugins/producer/CONNECTORS.md#1-ableton-mcp">CONNECTORS.md → Ableton MCP</a>.
       </p>
     </div>
   </section>
@@ -298,8 +380,8 @@
   <!-- connectors -->
   <section id="connectors" class="border-b border-black/10 dark:border-white/10">
     <div class="max-w-6xl mx-auto px-6 py-20">
-      <h2 data-reveal class="text-3xl md:text-4xl font-extrabold tracking-tight">7 MCP connectors.</h2>
-      <p data-reveal class="mt-3 opacity-70 max-w-2xl">Wired in. Cloud MCPs OAuth on first use. The Ableton MCP is local.</p>
+      <h2 data-reveal class="text-3xl md:text-4xl font-extrabold tracking-tight">7 MCP connectors + 1 extension.</h2>
+      <p data-reveal class="mt-3 opacity-70 max-w-2xl">Wired into <code class="font-mono text-xs px-1.5 py-0.5 rounded bg-ink/5 dark:bg-paper/5">.mcp.json</code>. Cloud MCPs OAuth on first use; the Ableton MCP is local. Ableton Knowledge is a Claude Desktop extension.</p>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-3 mt-10">
         <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40">
@@ -315,10 +397,6 @@
           <p class="mt-1 text-sm opacity-80">References, audio features (BPM/key), playlists.</p>
         </div>
         <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40">
-          <div class="font-bold">Apple Music</div>
-          <p class="mt-1 text-sm opacity-80">References and playlists for Apple Music users.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40">
           <div class="font-bold">Google Drive</div>
           <p class="mt-1 text-sm opacity-80">Upload stems, masters, reference notes, release packages.</p>
         </div>
@@ -329,6 +407,14 @@
         <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40">
           <div class="font-bold">Google Calendar</div>
           <p class="mt-1 text-sm opacity-80">Schedule release-day timeline.</p>
+        </div>
+        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40">
+          <div class="font-bold">Canva</div>
+          <p class="mt-1 text-sm opacity-80">Cover art templates and release moodboards.</p>
+        </div>
+        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40">
+          <div class="font-bold">Ableton Knowledge <span class="text-[10px] font-mono uppercase tracking-widest opacity-50">ext</span></div>
+          <p class="mt-1 text-sm opacity-80">Search Live / Push / Move / Note manuals, KB, video transcripts. Local-only.</p>
         </div>
       </div>
     </div>

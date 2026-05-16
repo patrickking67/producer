@@ -108,8 +108,8 @@ For each draft, lead with the *one sentence* that makes this record different, t
 - **Gmail** — draft promo / label / engineer emails
 - **Google Calendar** — schedule the −28 / −21 / −14 / −7 / −1 / 0 milestones
 - **Spotify** — `create_playlist` for the pre-save playlist and a "Inspired By" companion playlist
-- **Apple Music** — same for Apple
+- **Canva** — `search-designs` / `import-design-from-url` for cover art templates and motion / lyric video assets
 - Ableton MCP — drive the final master export
 
 ## After
-"Want me to (a) schedule the full release timeline in Calendar, (b) draft promo emails for the top 10 DJs (Gmail), (c) build a pre-save companion playlist (Spotify + Apple Music), or (d) double-check the final master against the LUFS target (`mix-coach`)?"
+"Want me to (a) schedule the full release timeline in Calendar, (b) draft promo emails for the top 10 DJs (Gmail), (c) build a pre-save companion playlist on Spotify, (d) draft cover art templates in Canva, or (e) double-check the final master against the LUFS target (`mix-coach`)?"

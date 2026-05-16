@@ -1,6 +1,6 @@
 # Connectors
 
-The Producer plugin uses 7 MCP servers. Six are auto-declared in `.mcp.json` and OAuth on first use. One — the Ableton MCP — runs locally via `uvx`.
+The Producer plugin auto-declares 7 MCP servers in `.mcp.json`. Six are cloud HTTP MCPs that OAuth on first use; the Ableton MCP runs locally via `uvx`. The Ableton Knowledge desktop extension is recommended separately.
 
 ## All connectors at a glance
 
@@ -9,10 +9,16 @@ The Producer plugin uses 7 MCP servers. Six are auto-declared in `.mcp.json` and
 | **Ableton** | stdio (local) | Recommended | Yes — `uvx ableton-mcp` | `session-bridge`, also called from `midi-lab`, `sound-design`, `mix-coach`, `arrangement`, `stem-prep`, `release-prep`, `library-browser`, `ableton-engineer` |
 | **Splice** | HTTP (cloud) | Optional | Yes | `sound-design`, `producer-review`, `brainstorm`, `library-browser` (fallback) |
 | **Spotify** | HTTP (cloud) | Optional | Yes | `reference-curator`, `brainstorm`, `producer-review`, `mix-coach`, `release-prep` |
-| **Apple Music** | stdio (local) | Optional | Yes — `npx @kazuph/mcp-apple-music` | `reference-curator`, `brainstorm`, `release-prep` |
 | **Google Drive** | HTTP (cloud) | Optional | Yes | `stem-prep`, `release-prep`, `reference-curator`, `arrangement` |
 | **Gmail** | HTTP (cloud) | Optional | Yes | `stem-prep`, `release-prep`, `reference-curator` |
 | **Google Calendar** | HTTP (cloud) | Optional | Yes | `release-prep`, `ableton-engineer` |
+| **Canva** | HTTP (cloud) | Optional | Yes | `release-prep`, `brainstorm` (artwork, moodboards) |
+
+Plus one separate Desktop Extension recommended for Claude Desktop / Claude.ai users:
+
+| Extension | Type | Used by |
+|---|---|---|
+| **Ableton Knowledge** | Desktop Extension (Ableton) | `ableton-docs` — searches Live / Push / Move / Note manuals, knowledge base, video transcripts |
 
 If a connector isn't authorized, the skills degrade gracefully: they tell you the gap and proceed with everything else.
 
@@ -43,7 +49,7 @@ uv tool install ableton-mcp
 
 **URL**: `https://mcp.splice.com/mcp`. OAuth on first use.
 
-**Tools used**: `describe_a_sound`, `prompt_to_stack`, `create_stack`, `share_stack`, `download_asset`.
+**Tools used**: `search` (Search Splice Sounds), `create_stack` (Create Stack from Sample), `download_asset` (Download Sound), `prompt_to_stack` (Generate Stack from Prompt), `share_stack`, `update_stack`.
 
 **Skip if**: you don't have a Splice subscription, or you've already got the sample library you need locally.
 
@@ -51,53 +57,55 @@ uv tool install ableton-mcp
 
 **URL**: `https://mcp-gateway-external-pilot.spotify.net/mcp`. OAuth on first use.
 
-**Tools used**: `search`, `fetch_tracks` (audio features incl. BPM/key), `get_currently_playing`, `create_playlist`, `add_to_library`.
+**Tools used**: `search`, `fetch_tracks` (audio features incl. BPM/key), `get_currently_playing`, `create_playlist`, `add_to_library`, `Remove_from_library`.
 
-## 4. Apple Music
+## 4. Google Drive
 
-**Server**: [`@kazuph/mcp-apple-music`](https://www.npmjs.com/package/@kazuph/mcp-apple-music) — controls the local Apple Music app via AppleScript (macOS only).
+**URL**: `https://drivemcp.googleapis.com/mcp/v1`. OAuth on first use.
 
-**Install**: nothing; `npx` pulls it on first use. macOS will prompt to allow Claude Code to control Music.app the first time.
+**Tools used**: `search_files`, `read_file_content`, `download_file_content`, `create_file`, `get_file_metadata`, `get_file_permissions`, `list_recent_files`. Upload stems, references, masters, save reference notes, share folders.
 
-**Tools used**: search the local library + Apple Music catalog, create playlists, currently playing, play/pause.
+## 5. Gmail
 
-**Skip if**: you're on Windows/Linux or only use Spotify.
+**URL**: `https://gmailmcp.googleapis.com/mcp/v1`. OAuth on first use.
 
-## 5. Google Drive
+**Tools used**: `search_threads`, `get_thread`, `list_drafts`, `list_labels`, `create_draft`. The skills *draft* — you send. Never auto-send promo email.
 
-**URL**: `https://mcp.google.com/drive`. OAuth on first use.
+## 6. Google Calendar
 
-**Tools used**: upload files (stems, references, masters), create folders, share folders / files with collaborators.
+**URL**: `https://calendarmcp.googleapis.com/mcp/v1`. OAuth on first use.
 
-## 6. Gmail
+**Tools used**: `list_calendars`, `list_events`, `get_event`, `create_event`, `update_event`, `delete_event`, `find_free_time`, `respond_to_event`. Used to create reminders for the release timeline (−28 / −21 / −14 / −7 / −1 / 0).
 
-**URL**: `https://mcp.google.com/gmail`. OAuth on first use.
+## 7. Canva
 
-**Tools used**: draft messages (label sends, DJ promo, mastering hand-offs).
+**URL**: `https://mcp.canva.com/mcp`. OAuth on first use.
 
-The skills *draft* — you send. Never auto-send promo email.
+**Tools used**: `search-designs`, `get-design`, `get-design-pages`, `get-design-content`, `search`, `fetch`, `import-design-from-url`. Used by `release-prep` to draft cover art templates and by `brainstorm` for visual moodboards.
 
-## 7. Google Calendar
+## Bonus: Ableton Knowledge (Desktop Extension)
 
-**URL**: `https://mcp.google.com/calendar`. OAuth on first use.
+Not declared in `.mcp.json` because it's a Claude Desktop Extension, not an HTTP MCP. Strongly recommended for `ableton-docs` lookups.
 
-**Tools used**: create events with reminders for the release timeline (−28 / −21 / −14 / −7 / −1 / 0).
+**Install**: in Claude Desktop → Settings → Extensions → install "Ableton Knowledge" (developed by Ableton). Tools: `search_live_manual`, `search_push_manual`, `search_move_manual`, `search_note_manual`, `search_knowledge_base`, `search_videos`, `search_transcripts`, `get_ableton_knowledge_info`. Everything runs locally — no network calls.
 
 ## Install order
 
 1. **Ableton MCP** first — it's the only one that takes setup work. Without it, `session-bridge` can't drive Live and the engineer agent can't do end-to-end runs.
-2. **Drop the plugin into Claude Code** — the remaining 6 MCPs are declared in `.mcp.json` and OAuth on first use.
-3. **Authorize what you need.** Splice and Apple Music are skippable; the rest unlock different workflows.
+2. **Drop the plugin into Claude Code** — the remaining 6 cloud MCPs are declared in `.mcp.json` and OAuth on first use.
+3. **Authorize what you need.** Splice and Canva are skippable; Spotify / Drive / Gmail / Calendar unlock different workflows.
+4. **Add Ableton Knowledge** in Claude Desktop if you want richer manual lookups.
 
 ## Routing rules the skills follow
 
 | Question | First connector | Then |
 |---|---|---|
-| "How does [Live feature] work?" | `search_live_manual` | `search_knowledge_base`, `search_videos` |
-| "Find me a [sound]" | `library-browser` (local) | Splice (`describe_a_sound`) if no local match |
-| "What should this sound like?" | Spotify `search` | Apple Music search |
-| "Make me a reference playlist" | Spotify + Apple Music | Drive (save notes) |
+| "How does [Live feature] work?" | Ableton Knowledge `search_live_manual` | `search_knowledge_base`, `search_videos` |
+| "Find me a [sound]" | `library-browser` (local) | Splice (`search` / `prompt_to_stack`) if no local match |
+| "What should this sound like?" | Spotify `search` | Spotify `fetch_tracks` for BPM/key |
+| "Make me a reference playlist" | Spotify `create_playlist` | Drive (save notes) |
 | "Send stems to my engineer" | `stem-prep` | Drive (upload) + Gmail (draft) |
-| "Set up my release" | `release-prep` | Drive + Gmail + Calendar |
+| "Set up my release" | `release-prep` | Drive + Gmail + Calendar + Canva (artwork) |
 | "Set BPM to 126 / add track / load preset" | `session-bridge` (Ableton MCP) | — |
 | "Compare my track to a reference" | Spotify `get_currently_playing` or `search` | `mix-coach` |
+| "Draft cover art / a release moodboard" | Canva `search-designs` / `import-design-from-url` | Drive (save) |

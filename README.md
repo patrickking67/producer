@@ -29,7 +29,7 @@ This repo is a Claude Code **marketplace** that ships two surfaces of the same p
 
 | Component | What it is | Where it lives |
 |---|---|---|
-| **Producer** (Claude Code plugin) | 12 skills + 12 slash commands + 1 agent + 7 MCPs (Ableton, Splice, Spotify, Apple Music, Google Drive, Gmail, Calendar). Reviews, brainstorms, writes MIDI, designs sounds, mixes, browses your library, arranges, preps stems and releases, and drives Live directly. | [`plugins/producer/`](plugins/producer/) |
+| **Producer** (Claude Code plugin) | 12 skills + 12 slash commands + 1 agent + 7 MCPs (Ableton, Splice, Spotify, Google Drive, Gmail, Google Calendar, Canva) + the Ableton Knowledge desktop extension. Reviews, brainstorms, writes MIDI, designs sounds, mixes, browses your library, arranges, preps stems and releases, and drives Live directly. | [`plugins/producer/`](plugins/producer/) |
 | **Producer for Live** (Max for Live device) | A Max for Live MIDI Effect that calls the Claude API from inside Live to generate drum/melody/chord patterns into the highlighted clip. | [`max-for-live/`](max-for-live/) |
 
 ## Install (Producer plugin)
@@ -48,7 +48,7 @@ Or via full URL:
 /plugin install producer@producer
 ```
 
-The marketplace manifest is at [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json). The 6 cloud MCPs (Splice, Spotify, Apple Music, Google Drive, Gmail, Calendar) OAuth on first use. Install the Ableton MCP separately — see [`plugins/producer/CONNECTORS.md`](plugins/producer/CONNECTORS.md#1-ableton-mcp).
+The marketplace manifest is at [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json). The 6 cloud MCPs (Splice, Spotify, Google Drive, Gmail, Google Calendar, Canva) OAuth on first use. Install the Ableton MCP separately — see [`plugins/producer/CONNECTORS.md`](plugins/producer/CONNECTORS.md#1-ableton-mcp).
 
 Works in **Claude Code on the web** (cowork) and in the local CLI. Cloud MCPs OAuth on first use either way; the Ableton MCP only runs locally (it talks to Live over the Remote Script).
 
@@ -70,7 +70,7 @@ Follow the step-by-step in [`max-for-live/README.md`](max-for-live/README.md). Y
 | `/docs` | ableton-docs — Live / Push / Move / Note manuals + KB + videos |
 | `/library` | library-browser — your Ableton Library + Packs, like Live's browser |
 | `/arrange` | arrangement — bar-by-bar plan with an energy curve |
-| `/reference` | reference-curator — Spotify + Apple Music playlists with BPM/key/LUFS |
+| `/reference` | reference-curator — Spotify playlists with BPM/key/LUFS |
 | `/stems` | stem-prep — for mastering, remix, sync, DJ tools, live |
 | `/release` | release-prep — master target, metadata, artwork, ISRC, schedule |
 | `/session` | session-bridge — drive Live directly via the Ableton MCP |
@@ -83,7 +83,7 @@ Follow the step-by-step in [`max-for-live/README.md`](max-for-live/README.md). Y
 
 ### 7 MCP connectors
 
-Auto-declared in [`.mcp.json`](plugins/producer/.mcp.json): **Ableton**, **Splice**, **Spotify**, **Apple Music**, **Google Drive**, **Gmail**, **Google Calendar**. Full breakdown in [CONNECTORS.md](plugins/producer/CONNECTORS.md).
+Auto-declared in [`.mcp.json`](plugins/producer/.mcp.json): **Ableton**, **Splice**, **Spotify**, **Google Drive**, **Gmail**, **Google Calendar**, **Canva**. Plus the **Ableton Knowledge** desktop extension for manual / KB / video lookups. Full breakdown in [CONNECTORS.md](plugins/producer/CONNECTORS.md).
 
 ## Repo layout
 

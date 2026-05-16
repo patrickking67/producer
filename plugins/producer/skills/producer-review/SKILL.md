@@ -39,15 +39,15 @@ If the Ableton MCP is connected and the user is asking about their current sessi
 - Why (in producer language)
 - How in Ableton (specific device + parameters — e.g. "Glue Comp on drum bus, 4:1, 10 ms attack, auto release, 2 dB GR")
 
-**References** — 2–3 tracks that solve the problem. Artist, track, timestamp, what to listen for. Pull from Spotify (`search` / `fetch_tracks`) or Apple Music if useful.
+**References** — 2–3 tracks that solve the problem. Artist, track, timestamp, what to listen for. Pull from Spotify (`search` / `fetch_tracks`).
 
 **What's working** — 3 bullets of things to *not* change.
 
 ## Connectors
 - `search_live_manual` to verify any device parameter you cite
-- Spotify `search` + `fetch_tracks` and Apple Music search for reference matches
-- Ableton `search_videos` if a tutorial would land the fix better than text
-- Splice `describe_a_sound` if a missing element needs a real sample
+- Spotify `search` + `fetch_tracks` for reference matches
+- Ableton Knowledge `search_videos` if a tutorial would land the fix better than text
+- Splice `search` / `prompt_to_stack` if a missing element needs a real sample
 - Ableton MCP (`get_session_info`, `get_track_info`) for live session diagnostics
 - Google Drive — if the bounce was shared via a Drive link, fetch it directly
 

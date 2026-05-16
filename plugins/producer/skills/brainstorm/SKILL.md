@@ -52,8 +52,8 @@ Repeat for 3–5 directions.
 
 ## Connectors
 - Spotify `search` / `fetch_tracks` for reference tracks; `get_currently_playing` if they say "like what I'm listening to right now"
-- Apple Music when the user prefers Apple Music or Spotify can't surface the reference
-- Splice `prompt_to_stack` or `describe_a_sound` if a direction hinges on a sample type they don't have
+- Splice `prompt_to_stack` or `search` if a direction hinges on a sample type they don't have
+- Canva `search-designs` if the user wants a quick visual moodboard alongside the audio directions
 - `search_videos` for an Ableton tutorial that demos the technique
 - `library-browser` if a direction asks for a preset they probably already own
 
