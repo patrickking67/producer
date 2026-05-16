@@ -71,7 +71,7 @@ MASTER BUS:
 
 ## Reference workflow
 
-1. Pull reference via Spotify `search` / `fetch_tracks` or Apple Music search (or `get_currently_playing` if they're listening to it)
+1. Pull reference via Spotify `search` / `fetch_tracks` (or `get_currently_playing` if they're listening to it)
 2. Drop both into Ableton, level-match by integrated LUFS (Utility → Gain to match)
 3. A/B with **Ear** (don't trust eyes). Match: low-end weight, vocal pocket, drop "lift", stereo width, brightness
 4. Note 3 specific differences. Fix the 1 biggest.
@@ -80,8 +80,8 @@ If a curated reference set would help, hand off to `reference-curator` to build 
 
 ## Connectors
 - `search_live_manual` for any Live device parameter you cite (esp. Pro Limiter, Hybrid Reverb, Multiband Dynamics)
-- Spotify + Apple Music for reference matching
-- Splice `describe_a_sound` / `download_asset` if a layer is missing (a clap top, a missing high-end perc)
+- Spotify for reference matching (`search`, `fetch_tracks`, `get_currently_playing`)
+- Splice `search` / `download_asset` if a layer is missing (a clap top, a missing high-end perc)
 - Ableton MCP — `session-bridge` to actually drop / re-order devices on the master bus
 
 ## After

@@ -81,7 +81,7 @@ Save this table to `~/Music/Producer/arrangements/<track-name>_arrangement.md`.
 
 ## Connectors
 - Ableton MCP — `session-bridge` to mark locators at section boundaries in the actual Live set
-- Spotify / Apple Music — `reference-curator` to pull 3 references with similar arrangements and time-stamp the section changes
+- Spotify — `reference-curator` to pull 3 references with similar arrangements and time-stamp the section changes
 - `search_videos` for arrangement tutorials specific to the genre
 
 ## After

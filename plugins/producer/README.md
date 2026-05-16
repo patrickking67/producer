@@ -2,7 +2,7 @@
 
 A Claude Code plugin for advanced Ableton Live producers. Tuned for house and EDM, works for any genre.
 
-Made by **Patrick King & Aden Mina**.
+Created by **Patrick King** for **Aden Mina** (producer) to use.
 
 > Review tracks, brainstorm, write MIDI, design sounds, dial in mixes, browse your library, arrange bar-by-bar, prep stems and releases, and drive Live directly — all from the chat box.
 
@@ -12,17 +12,17 @@ Made by **Patrick King & Aden Mina**.
 
 In Claude Code:
 ```
-/plugin marketplace add patrickking67/ableton
-/plugin install producer@ableton
+/plugin marketplace add patrickking67/producer
+/plugin install producer@producer
 ```
 
-That's it. The 6 cloud MCPs (Splice, Spotify, Apple Music, Google Drive, Gmail, Calendar) will OAuth on first use. Install the Ableton MCP separately — see [CONNECTORS.md](CONNECTORS.md#1-ableton-mcp).
+That's it. The 6 cloud MCPs (Splice, Spotify, Google Drive, Gmail, Google Calendar, Canva) will OAuth on first use. Install the Ableton MCP separately — see [CONNECTORS.md](CONNECTORS.md#1-ableton-mcp). The Ableton Knowledge desktop extension is a recommended bonus for `ableton-docs` lookups.
 
 ### From this repo
 
 ```
-/plugin marketplace add https://github.com/patrickking67/ableton.git
-/plugin install producer@ableton
+/plugin marketplace add https://github.com/patrickking67/producer.git
+/plugin install producer@producer
 ```
 
 ## Slash commands
@@ -37,7 +37,7 @@ That's it. The 6 cloud MCPs (Splice, Spotify, Apple Music, Google Drive, Gmail, 
 | `/docs` | `ableton-docs` | Surgical lookups in Live / Push / Move / Note manuals + KB + videos |
 | `/library` | `library-browser` | Browse your User Library + installed Packs like Live's left-hand browser |
 | `/arrange` | `arrangement` | Bar-by-bar arrangement coach — energy curve, section moves |
-| `/reference` | `reference-curator` | Build a reference playlist across Spotify + Apple Music |
+| `/reference` | `reference-curator` | Build a reference playlist on Spotify |
 | `/stems` | `stem-prep` | Prep stems for mastering, remix, sync, DJ tools, live |
 | `/release` | `release-prep` | Master target, metadata, artwork, ISRC, release-day schedule |
 | `/session` | `session-bridge` | Drive Ableton Live directly — create tracks, load presets, fire clips |
@@ -57,12 +57,12 @@ Skills also auto-trigger from natural language — "review my track", "write a b
 | **Ableton** (local) | Drive Live directly — tempo, tracks, devices, clips, locators |
 | **Splice** (cloud) | Sample discovery, stack building, downloads |
 | **Spotify** (cloud) | References, audio features (BPM/key), playlists |
-| **Apple Music** (local stdio) | References, playlists for Apple Music users |
 | **Google Drive** (cloud) | Upload stems, masters, reference notes, release packages |
 | **Gmail** (cloud) | Draft promo / label / mastering hand-off emails |
 | **Google Calendar** (cloud) | Schedule release-day timeline |
+| **Canva** (cloud) | Cover art templates, release moodboards |
 
-Full reference: [CONNECTORS.md](CONNECTORS.md).
+Plus the **Ableton Knowledge** desktop extension (Claude Desktop) — manuals, KB, video transcripts. See full reference: [CONNECTORS.md](CONNECTORS.md).
 
 ## Quick taste
 

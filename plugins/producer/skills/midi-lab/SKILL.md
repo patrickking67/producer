@@ -84,7 +84,7 @@ If the Ableton MCP is connected:
 
 ## Connectors
 - `search_live_manual` for Live 12 MIDI tools (Scale, Arpeggiator, Note Echo, Random, generative tools) before quoting parameters
-- Spotify `fetch_tracks` or Apple Music search if the user names a reference; pull tempo/key from metadata where possible
+- Spotify `search` + `fetch_tracks` if the user names a reference; pull tempo/key from audio features
 - Ableton MCP for direct clip writing
 - `library-browser` if the user wants the MIDI to match an instrument preset they already own
 

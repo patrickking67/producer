@@ -1,7 +1,7 @@
 /**
- * MINA Claude — Max for Live Node.js Script
- * Calls Claude API to generate MIDI patterns and session suggestions
- * Place this file next to your .amxd patch file
+ * Producer — Max for Live Node.js Script
+ * Calls the Claude API to generate MIDI patterns and session suggestions.
+ * Place this file next to your .amxd patch file.
  */
 
 const Max = require('max-api');
@@ -269,5 +269,5 @@ Offbeat hits, dark voicings. Defected / Innervisions feel.`;
   });
 }
 
-Max.post('MINA Claude script loaded');
+Max.post('Producer script loaded');
 Max.outlet('status', 'Ready');
