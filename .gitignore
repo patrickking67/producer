@@ -1,0 +1,16 @@
+# Built plugin bundle — produced by .github/workflows/release.yml on tag push
+dist/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+*.swp
