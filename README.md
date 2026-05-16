@@ -110,15 +110,26 @@ producer/
 │   ├── producer.js
 │   ├── get_context.js
 │   └── write_midi.js
-├── dist/
-│   └── producer.plugin           ← zipped plugin bundle for manual install
+├── scripts/
+│   └── validate_plugin.py        ← schema + frontmatter validator (runs in CI)
 ├── LICENSE
 └── README.md
 ```
 
 ## Manual install (bundle)
 
-If you'd rather sideload the zipped bundle instead of using the marketplace, grab [`dist/producer.plugin`](dist/producer.plugin) and drag it into Claude Code.
+If you'd rather sideload the zipped bundle instead of using the marketplace, grab `producer.plugin` from the [latest GitHub release](https://github.com/patrickking67/producer/releases/latest) and drag it into Claude Code. The bundle is built on every `v*` tag push by [`.github/workflows/release.yml`](.github/workflows/release.yml).
+
+## Development
+
+Validate the plugin structure locally before pushing:
+
+```bash
+pip install pyyaml
+python3 scripts/validate_plugin.py
+```
+
+The same validator runs on every push and PR via [`.github/workflows/validate.yml`](.github/workflows/validate.yml) — it catches unparseable frontmatter, wrong schema keys (`authors` vs `author`, `tools` as a list, etc.), and missing required fields.
 
 ## License
 

@@ -1,0 +1,48 @@
+name: Validate plugin
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Validate plugin structure
+        run: python3 scripts/validate_plugin.py
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Lint Max for Live JS
+        run: |
+          for f in max-for-live/*.js; do
+            echo "Checking $f"
+            node --check "$f"
+          done
+
+      - name: Build bundle (smoke test)
+        run: |
+          mkdir -p dist
+          cd plugins/producer
+          zip -rq ../../dist/producer.plugin . -x "*.DS_Store"
+          cd ../..
+          # Confirm the bundled plugin.json round-trips
+          unzip -p dist/producer.plugin .claude-plugin/plugin.json | python3 -m json.tool > /dev/null
+          # Confirm every bundled agent's YAML parses
+          unzip -p dist/producer.plugin agents/ableton-engineer.md | \
+            python3 -c "import sys, re, yaml; yaml.safe_load(re.match(r'---\n(.+?)\n---', sys.stdin.read(), re.DOTALL).group(1))"
+          echo "Bundle built and parsed cleanly"
