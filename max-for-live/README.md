@@ -5,7 +5,7 @@ The in-Live companion to the [Producer plugin](../plugins/producer/README.md). S
 > Producer is the chat-side toolkit. Producer for Live is the in-Live device.
 > Use them together: Producer brainstorms, writes, and ships; Producer for Live generates inside the running set.
 
-Created by **Patrick King** for **Aden Mina** (producer) to use.
+Created by **Patrick King**. MIT licensed.
 
 ## What you're building
 
