@@ -12,8 +12,8 @@
       "source": "./plugins/producer",
       "version": "1.0.0",
       "description": "Producer companion for Ableton Live. Review tracks, brainstorm, write MIDI, design sounds, dial in mixes, prep stems and releases, browse your library, and drive Live directly. Wired into Ableton, Splice, Spotify, Google Drive, Gmail, Google Calendar, and Canva.",
-      "homepage": "https://patrickking67.github.io/producer-plugin/",
-      "repository": "https://github.com/patrickking67/producer-plugin",
+      "homepage": "https://patrickking67.github.io/producer/",
+      "repository": "https://github.com/patrickking67/producer",
       "license": "MIT",
       "author": {
         "name": "Patrick King"

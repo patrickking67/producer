@@ -22,6 +22,10 @@ marketplace = load_json(root / ".claude-plugin" / "marketplace.json")
 plugin = load_json(root / "plugins" / "producer" / ".claude-plugin" / "plugin.json")
 load_json(root / "plugins" / "producer" / ".mcp.json")
 
+for required_file in (root / "examples" / "README.md", root / "CHANGELOG.md", root / ".github" / "workflows" / "release.yml"):
+    if not required_file.exists():
+        errors.append(f"missing required release asset: {required_file.relative_to(root)}")
+
 with zipfile.ZipFile(root / "dist" / "producer.plugin") as archive:
     packaged_manifest = json.loads(archive.read(".claude-plugin/plugin.json"))
     if packaged_manifest != plugin:
@@ -64,6 +68,15 @@ for script in sorted((root / "max-for-live").glob("*.js")):
 
 if (root / "CLAUDE.md").read_text().strip() != "@AGENTS.md":
     errors.append("CLAUDE.md must contain only @AGENTS.md")
+
+retired_repository = "patrickking67/" + "producer-plugin"
+for path in root.rglob("*"):
+    if path.is_file() and ".git" not in path.parts and "dist" not in path.parts:
+        try:
+            if retired_repository in path.read_text():
+                errors.append(f"{path.relative_to(root)}: contains the retired repository slug")
+        except UnicodeDecodeError:
+            pass
 
 if errors:
     print("\n".join(errors))

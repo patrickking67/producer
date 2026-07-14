@@ -12,7 +12,7 @@ Created by **Patrick King**. MIT licensed.
 
 In Claude Code:
 ```
-/plugin marketplace add patrickking67/producer-plugin
+/plugin marketplace add patrickking67/producer
 /plugin install producer@producer
 ```
 
@@ -21,7 +21,7 @@ That's it. The 6 cloud MCPs (Splice, Spotify, Google Drive, Gmail, Google Calend
 ### From this repo
 
 ```
-/plugin marketplace add https://github.com/patrickking67/producer-plugin.git
+/plugin marketplace add https://github.com/patrickking67/producer.git
 /plugin install producer@producer
 ```
 

@@ -8,17 +8,18 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/patrickking67/producer-plugin/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-black?style=flat-square" alt="MIT License"></a>
+  <a href="https://github.com/patrickking67/producer/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-black?style=flat-square" alt="MIT License"></a>
   <img src="https://img.shields.io/badge/Claude%20Code-plugin-black?style=flat-square" alt="Claude Code plugin">
   <img src="https://img.shields.io/badge/Ableton%20Live-12-black?style=flat-square" alt="Ableton Live 12">
   <img src="https://img.shields.io/badge/Max%20for%20Live-device-black?style=flat-square" alt="Max for Live">
 </p>
 
 <p align="center">
-  <a href="https://patrickking67.github.io/producer-plugin/"><strong>Website</strong></a> ·
+  <a href="https://patrickking67.github.io/producer/"><strong>Website</strong></a> ·
   <a href="plugins/producer/">Plugin</a> ·
   <a href="max-for-live/">Max for Live device</a> ·
-  <a href="plugins/producer/CONNECTORS.md">Connectors</a>
+  <a href="plugins/producer/CONNECTORS.md">Connectors</a> ·
+  <a href="examples/README.md">Workflow examples</a>
 </p>
 
 ---
@@ -37,14 +38,14 @@ This repo is a Claude Code **marketplace** that ships two surfaces of the same p
 In Claude Code:
 
 ```text
-/plugin marketplace add patrickking67/producer-plugin
+/plugin marketplace add patrickking67/producer
 /plugin install producer@producer
 ```
 
 Or via full URL:
 
 ```text
-/plugin marketplace add https://github.com/patrickking67/producer-plugin.git
+/plugin marketplace add https://github.com/patrickking67/producer.git
 /plugin install producer@producer
 ```
 
@@ -88,7 +89,7 @@ Auto-declared in [`.mcp.json`](plugins/producer/.mcp.json): **Splice**, **Spotif
 ## Repo layout
 
 ```
-producer-plugin/
+producer/
 ├── .claude-plugin/
 │   └── marketplace.json          ← marketplace manifest
 ├── assets/
@@ -119,6 +120,14 @@ producer-plugin/
 ## Manual install (bundle)
 
 If you'd rather sideload the zipped bundle instead of using the marketplace, grab [`dist/producer.plugin`](dist/producer.plugin) and drag it into Claude Code.
+
+## See complete workflows
+
+The [workflow examples](examples/README.md) show how Producer moves from a real production problem to concrete artifacts across arrangement, MIDI, sound design, mix decisions, and release preparation. Each example identifies the commands, expected outputs, and external connections involved.
+
+## Releases
+
+Version tags run repository validation, rebuild the plugin bundle from source, and attach `producer.plugin` to a GitHub release. See [CHANGELOG.md](CHANGELOG.md) for shipped changes.
 
 ## License
 
