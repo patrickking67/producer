@@ -1,0 +1,12 @@
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+.claude/settings.local.json
+CLAUDE.local.md
+.history/
+history/
+.memory/
+memory/
+node_modules/

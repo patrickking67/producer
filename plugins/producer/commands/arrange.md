@@ -1,5 +1,5 @@
 ---
-description: Arrangement coach — sketch intros, builds, drops, breaks, outros bar-by-bar
+description: Arrangement coach: sketch intros, builds, drops, breaks, outros bar-by-bar
 argument-hint: "<section you're working on, or the whole arrangement>"
 ---
 

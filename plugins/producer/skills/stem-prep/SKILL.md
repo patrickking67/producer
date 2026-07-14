@@ -8,11 +8,11 @@ argument-hint: "<recipient / purpose>"
 
 Stems are a contract. The recipient should be able to drop them on the timeline at 1.1.1 and hear the same record. Get this wrong and they bounce back.
 
-## First — who's the recipient?
+## First: who's the recipient?
 
 | Recipient | Stem grouping | Headroom | Format | Notes |
 |---|---|---|---|---|
-| **Mastering engineer** | Drums / Bass / Keys / Vox / FX (5–8 stems) | −6 dBFS true peak, no master bus FX | 24-bit / project SR (44.1 or 48) WAV | No limiter / no master comp / no master EQ |
+| **Mastering engineer** | Drums / Bass / Keys / Vox / FX (5-8 stems) | −6 dBFS true peak, no master bus FX | 24-bit / project SR (44.1 or 48) WAV | No limiter / no master comp / no master EQ |
 | **Remixer** | Drums / Bass / Keys / Lead / Vox / Pad / FX (full breakdown) | −6 dBFS | 24-bit WAV | Include MIDI of melodic parts + acapella + project tempo + key |
 | **DJ stems** (Serato / Virtual DJ) | Vocals / Drums / Bass / Other (exactly 4) | Whatever the final master is | 16- or 24-bit WAV / FLAC | These are *post-master* stems |
 | **Sync / film** | Music (mix-) / Vocals / Drums + sub-stems | Same as remixer | 24-bit 48 kHz WAV (matches video) | Include instrumental, TV mix (vox under), and a-cappella |
@@ -22,14 +22,14 @@ If the recipient is unspecified, default to mastering grouping and ask.
 
 ## Standard checklist before bouncing
 
-1. **Print everything in-the-box** — bounce VIs to audio, freeze automation, kill the master limiter/comp/EQ
-2. **Headroom** — pull the master fader so the loudest hit is < −6 dBFS true peak. Don't touch individual track faders.
-3. **Same start, same end** — every stem starts at 1.1.1 and ends at the same bar. Bake silence at the start if needed.
-4. **Same length** — pad short stems with silence so they all match (drag-and-drop deployment for the recipient)
-5. **Mono where appropriate** — Kick, Sub, often Bass = mono stems. Everything else stereo even if the source is mono.
-6. **Naming convention** — `<artist>_<title>_<bpm>_<key>_<stem>.wav`, e.g. `mina_overnight_124_Am_drums.wav`. Number-prefix stems for sort order: `01_drums`, `02_bass`, `03_keys`...
-7. **Tempo + key + bar count** — include in a `README.txt` alongside the stems
-8. **Reference bounce** — also export the final mix (`00_reference.wav`) so the recipient knows the target
+1. **Print everything in-the-box**: bounce VIs to audio, freeze automation, kill the master limiter/comp/EQ
+2. **Headroom**: pull the master fader so the loudest hit is < −6 dBFS true peak. Don't touch individual track faders.
+3. **Same start, same end**: every stem starts at 1.1.1 and ends at the same bar. Bake silence at the start if needed.
+4. **Same length**: pad short stems with silence so they all match (drag-and-drop deployment for the recipient)
+5. **Mono where appropriate**: Kick, Sub, often Bass = mono stems. Everything else stereo even if the source is mono.
+6. **Naming convention**: `<artist>_<title>_<bpm>_<key>_<stem>.wav`, e.g. `mina_overnight_124_Am_drums.wav`. Number-prefix stems for sort order: `01_drums`, `02_bass`, `03_keys`...
+7. **Tempo + key + bar count**: include in a `README.txt` alongside the stems
+8. **Reference bounce**: also export the final mix (`00_reference.wav`) so the recipient knows the target
 
 ## File package structure
 
@@ -76,10 +76,10 @@ After the package is ready:
 - **Google Calendar**: add a follow-up event for the expected return date
 
 ## Connectors
-- Ableton MCP — drive the export
-- Google Drive — upload
-- Gmail — draft delivery email
-- Google Calendar — schedule follow-up
+- Ableton MCP: drive the export
+- Google Drive: upload
+- Gmail: draft delivery email
+- Google Calendar: schedule follow-up
 - `search_live_manual` for Live's export dialog options if the user wants the menu walkthrough
 
 ## After

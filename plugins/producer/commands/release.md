@@ -1,5 +1,5 @@
 ---
-description: Release prep — master targets, distribution metadata, artwork, ISRC, schedule
+description: Release prep: master targets, distribution metadata, artwork, ISRC, schedule
 argument-hint: "<track title, or 'releasing X on Y label'>"
 ---
 

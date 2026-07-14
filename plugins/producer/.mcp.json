@@ -1,10 +1,5 @@
 {
   "mcpServers": {
-    "ableton": {
-      "type": "stdio",
-      "command": "uvx",
-      "args": ["ableton-mcp"]
-    },
     "splice": {
       "type": "http",
       "url": "https://mcp.splice.com/mcp"

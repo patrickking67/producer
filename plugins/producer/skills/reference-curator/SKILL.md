@@ -11,28 +11,28 @@ The goal isn't 8 random vibey tracks. It's 8 tracks that each *teach the user so
 ## Method
 
 1. **Clarify scope** in one question if missing: are we matching mix, vibe, arrangement, or sound palette?
-2. **Pull 8–12 candidates** via Spotify `search` + `fetch_tracks`
+2. **Pull 8-12 candidates** via Spotify `search` + `fetch_tracks`
 3. **Tag every track** with the row below
-4. **Group into 3–4 buckets** (e.g. "for the drop energy", "for the bass tone", "for the breakdown")
+4. **Group into 3-4 buckets** (e.g. "for the drop energy", "for the bass tone", "for the breakdown")
 5. **Save a playlist** on the user's preferred platform; back up the list to Google Drive as a markdown file
 
 ## Output table
 
 | Track | Artist | BPM | Key | LUFS-i | What to listen for |
 |---|---|---|---|---|---|
-| *Untitled* | Lane 8 | 124 | A min | −11 | Breakdown shape — strips to vocal at 2:18 |
+| *Untitled* | Lane 8 | 124 | A min | −11 | Breakdown shape: strips to vocal at 2:18 |
 | *...* | ... | ... | ... | ... | ... |
 
 Pull BPM/key from Spotify audio features where available, else from beatport metadata if known. LUFS-i is your best guess from the master loudness rules of that genre + label.
 
 ## Bucket grouping
 
-Each bucket = 2–3 tracks that solve the same problem:
+Each bucket = 2-3 tracks that solve the same problem:
 
 **For the drop weight**
-- Track A — kick at 55 Hz, mono-tight
-- Track B — same energy, but uses a vocal chop as the rhythmic anchor
-- Track C — slower BPM, half-time drop variant
+- Track A: kick at 55 Hz, mono-tight
+- Track B: same energy, but uses a vocal chop as the rhythmic anchor
+- Track C: slower BPM, half-time drop variant
 
 **For the breakdown emotion**
 - ...
@@ -40,7 +40,7 @@ Each bucket = 2–3 tracks that solve the same problem:
 ## Playlist creation
 
 After approval:
-- Spotify: `create_playlist` named `"<track> — references"`, then `add_to_library` each match
+- Spotify: `create_playlist` named `"<track>: references"`, then `add_to_library` each match
 - Save the curator notes + the bucket structure to `~/Music/Producer/references/<track>_references.md` *and* upload to Google Drive at `Producer/References/`
 
 ## Workflow with mix-coach
@@ -57,7 +57,7 @@ When called from `arrangement`:
 
 ## Workflow with brainstorm
 When called from `brainstorm`:
-- Pick references that *differ* from where the user is right now — at least one in an adjacent genre
+- Pick references that *differ* from where the user is right now: at least one in an adjacent genre
 - Each reference should illustrate *one* direction in the brainstorm output
 
 ## Connectors

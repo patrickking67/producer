@@ -6,23 +6,23 @@ argument-hint: "<sound you want to design>"
 
 # Sound Design
 
-Recipes, not concepts. User is advanced — give parameters.
+Recipes, not concepts. User is advanced: give parameters.
 
-## Step 0 — Check the Library first
-Before designing from scratch, call `library-browser` for the target sound. If the user already has a matching Wavetable / Operator / Drum Rack preset in their User Library or installed Packs, surface it ("you already own *Heavy Sub Bass* in `Bass/Wavetable`"). Then offer to either *use that* or *design fresh* — user picks.
+## Step 0: Check the Library first
+Before designing from scratch, call `library-browser` for the target sound. If the user already has a matching Wavetable / Operator / Drum Rack preset in their User Library or installed Packs, surface it ("you already own *Heavy Sub Bass* in `Bass/Wavetable`"). Then offer to either *use that* or *design fresh*: user picks.
 
 ## Output format
 
-**Quick read** — one sentence: what we're making, which device, the one trick that makes it work.
+**Quick read**: one sentence: what we're making, which device, the one trick that makes it work.
 
-**Build steps** — numbered list:
-- **Step N — [action]**: device → parameter → value (and *why* in a half-sentence)
+**Build steps**: numbered list:
+- **Step N: [action]**: device → parameter → value (and *why* in a half-sentence)
 
-**FX chain** — top-down order, named devices, only the 1–2 parameters per device that you changed.
+**FX chain**: top-down order, named devices, only the 1-2 parameters per device that you changed.
 
-**Variants** — 2–3 quick mutations ("darker version: X"; "stab-y: Y").
+**Variants**: 2-3 quick mutations ("darker version: X"; "stab-y: Y").
 
-**What to listen for** — 3 bullets: present / absent / failure mode + fix.
+**What to listen for**: 3 bullets: present / absent / failure mode + fix.
 
 ## Device cheat-sheets
 
@@ -34,7 +34,7 @@ Before designing from scratch, call `library-browser` for the target sound. If t
 **Operator (FM)**
 - *FM bass*: Op A sine ratio 1 lvl 0 → Op B sine ratio 2 lvl −12 → Op C sine ratio 3.01 lvl −30. Algorithm 1. LP24 1.2 kHz, tracking 100.
 - *Bell*: A → B with B at non-integer ratio (3.5, 7.07), short env, detune slightly
-- *Reece*: 2–3 detuned saws → chorus → unison Op patch, slow LFO pitch wobble
+- *Reece*: 2-3 detuned saws → chorus → unison Op patch, slow LFO pitch wobble
 
 **Drift / Analog**
 - *Sub bass* (Drift): sine, octave −2, Glide 50, no filter, Saturator +3, Roar tube mode
@@ -69,7 +69,7 @@ Saturator (Soft Sat, +2) → EQ Eight (HP 80, high shelf +1.5 @ 9k) → Hybrid R
 - **Splice** `describe_a_sound` + `prompt_to_stack` when audio is faster than synthesis ("give me a one-shot dark kick, 60 Hz fundamental") → `download_asset` to grab it
 - `library-browser` for matching presets the user already owns
 - `search_transcripts` for the Ableton tutorial that demos the technique
-- Ableton MCP — `session-bridge` to load the device + apply parameters directly into Live
+- Ableton MCP: `session-bridge` to load the device + apply parameters directly into Live
 
 ## After
 "Want a variant, a complementary partner sound, or to load this straight into Live as a track?"

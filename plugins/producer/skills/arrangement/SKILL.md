@@ -1,6 +1,6 @@
 ---
 name: arrangement
-description: Bar-by-bar arrangement coaching — intro/build/drop/breakdown/outro structure, energy curves, phrasing, transitions, where to place tension and release. Use when the user says "how should this be arranged", "my arrangement is flat", "what comes after the drop", "draft the arrangement", "/arrange", or wants a structural plan. House/EDM defaults; works for any genre.
+description: Bar-by-bar arrangement coaching: intro/build/drop/breakdown/outro structure, energy curves, phrasing, transitions, where to place tension and release. Use when the user says "how should this be arranged", "my arrangement is flat", "what comes after the drop", "draft the arrangement", "/arrange", or wants a structural plan. House/EDM defaults; works for any genre.
 argument-hint: "<section, vibe, or whole arrangement>"
 ---
 
@@ -9,9 +9,9 @@ argument-hint: "<section, vibe, or whole arrangement>"
 User has a loop or section and needs structure. Or has a full song that doesn't move. Either way: a bar-by-bar plan with an energy reason for every section change.
 
 ## Inputs
-- 4–16 bar loop (audio or MIDI) — design the *full track* around it
-- Existing arrangement bounce — diagnose where energy stalls / peaks early / drags
-- Description only — produce a starter map
+- 4-16 bar loop (audio or MIDI): design the *full track* around it
+- Existing arrangement bounce: diagnose where energy stalls / peaks early / drags
+- Description only: produce a starter map
 
 If a bounce is supplied, run `ebur128` short-term LUFS over time to see the actual energy curve. Then read the curve back to the user before redesigning.
 
@@ -19,19 +19,19 @@ If a bounce is supplied, run `ebur128` short-term LUFS over time to see the actu
 
 | Section | Bars | Purpose |
 |---|---|---|
-| Intro | 16–32 | DJ-friendly, kick + maybe perc, no melody |
-| First break / pre-drop A | 8–16 | Introduce hook |
+| Intro | 16-32 | DJ-friendly, kick + maybe perc, no melody |
+| First break / pre-drop A | 8-16 | Introduce hook |
 | Drop 1 | 32 | Full energy |
-| Breakdown 1 | 16–32 | Strip to vocal / pad, build tension |
-| Drop 2 | 32 | Bigger — add a layer, change one thing |
-| Breakdown 2 / bridge | 8–16 | Last surprise |
-| Outro | 16–32 | DJ-friendly tail |
+| Breakdown 1 | 16-32 | Strip to vocal / pad, build tension |
+| Drop 2 | 32 | Bigger: add a layer, change one thing |
+| Breakdown 2 / bridge | 8-16 | Last surprise |
+| Outro | 16-32 | DJ-friendly tail |
 
-Total: ~5–7 minutes. Adjust for trance (longer), tech house (shorter), hard dance (faster phrasing).
+Total: ~5-7 minutes. Adjust for trance (longer), tech house (shorter), hard dance (faster phrasing).
 
 ## Output format
 
-**Energy map** — ASCII curve, one row per 8 bars:
+**Energy map**: ASCII curve, one row per 8 bars:
 
 ```
 Bars 0-7    ▁▁▁▁▁▁▁▁  Intro: kick + perc
@@ -42,26 +42,26 @@ Bars 48-79  █████████ DROP 2: + 5th layer
 ...
 ```
 
-**Bar-by-bar plan** — markdown table:
+**Bar-by-bar plan**: markdown table:
 
 | Bars | Section | Elements in | Elements out | The one move |
 |------|---------|-------------|--------------|--------------|
-| 0–15 | Intro | Kick, top loop | — | Filter slowly opens |
-| 16–23 | Pre-build | Sub, perc roll | Top loop | Snare roll last 4 bars |
-| 24–31 | Build | All synths | Kick (last bar) | Riser crests, silence on beat 4.4 |
-| 32–63 | Drop 1 | Everything | — | Bass layer drops in at bar 40 |
-| 64–79 | Breakdown | Vocal, pad | Drums | Pad swells, kick returns at 76 |
+| 0-15 | Intro | Kick, top loop | None | Filter slowly opens |
+| 16-23 | Pre-build | Sub, perc roll | Top loop | Snare roll last 4 bars |
+| 24-31 | Build | All synths | Kick (last bar) | Riser crests, silence on beat 4.4 |
+| 32-63 | Drop 1 | Everything | None | Bass layer drops in at bar 40 |
+| 64-79 | Breakdown | Vocal, pad | Drums | Pad swells, kick returns at 76 |
 | ... | ... | ... | ... | ... |
 
 Save this table to `~/Music/Producer/arrangements/<track-name>_arrangement.md`.
 
 ## Heuristics
-- **One change per 4 bars minimum** — if nothing changes, the listener checks out
-- **Drop 2 ≠ Drop 1** — add a counter-melody, change the bass octave, swap the lead with a vocal chop, or half-time it
-- **Build with silence, not noise** — kill one element 2 bars before the drop for half a beat
-- **Transitions are subtractions** — reduce before adding
-- **DJ math** — start and end on 32-bar phrases; intro/outro mostly drums
-- **Test with a DJ filter** — does it still groove when high-passed?
+- **One change per 4 bars minimum**: if nothing changes, the listener checks out
+- **Drop 2 ≠ Drop 1**: add a counter-melody, change the bass octave, swap the lead with a vocal chop, or half-time it
+- **Build with silence, not noise**: kill one element 2 bars before the drop for half a beat
+- **Transitions are subtractions**: reduce before adding
+- **DJ math**: start and end on 32-bar phrases; intro/outro mostly drums
+- **Test with a DJ filter**: does it still groove when high-passed?
 
 ## Section-specific moves
 
@@ -80,8 +80,8 @@ Save this table to `~/Music/Producer/arrangements/<track-name>_arrangement.md`.
 - Final 4 bars = kick + reverb tail of the lead
 
 ## Connectors
-- Ableton MCP — `session-bridge` to mark locators at section boundaries in the actual Live set
-- Spotify — `reference-curator` to pull 3 references with similar arrangements and time-stamp the section changes
+- Ableton MCP: `session-bridge` to mark locators at section boundaries in the actual Live set
+- Spotify: `reference-curator` to pull 3 references with similar arrangements and time-stamp the section changes
 - `search_videos` for arrangement tutorials specific to the genre
 
 ## After

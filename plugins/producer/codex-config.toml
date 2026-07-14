@@ -1,10 +1,10 @@
-# Producer — Codex CLI MCP config
+# Producer: Codex CLI MCP config
 #
 # Paste these into ~/.codex/config.toml (or merge with your existing config)
-# to give Codex the same 7-connector toolkit Producer wires into Claude Code.
+# to give Codex the same 6 remote connectors Producer wires into Claude Code.
 #
 # Codex doesn't have a plugin marketplace, so the slash commands and skills
-# don't port — but the MCPs (which carry most of the actual capability) all
+# don't port: but the MCPs (which carry most of the actual capability) all
 # work in Codex via the streamable HTTP transport. In Codex you describe
 # what you want and Codex calls the MCPs directly.
 #
@@ -12,13 +12,6 @@
 # (codex mcp add --url …). For cloud MCPs you can either paste the block
 # below and let Codex prompt for OAuth on first call, or run
 # `codex mcp add --url <url> <name>` to register interactively.
-
-# --- Local: drive Ableton Live directly ----------------------------------
-# Requires `uv tool install ableton-mcp` + the Live Remote Script setup.
-# See plugins/producer/CONNECTORS.md → "1. Ableton MCP".
-[mcp_servers.ableton]
-command = "uvx"
-args = ["ableton-mcp"]
 
 # --- Cloud: OAuth on first use -------------------------------------------
 [mcp_servers.splice]

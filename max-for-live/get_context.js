@@ -1,5 +1,5 @@
-// get_context.js — reads live Ableton session info
-// Max for Live JS object — called when user hits any generate button
+// get_context.js: reads live Ableton session info
+// Max for Live JS object: called when user hits any generate button
 inlets = 1;
 outlets = 1;
 

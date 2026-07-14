@@ -1,5 +1,5 @@
 ---
-description: Mix and master moves — gain staging, EQ/comp, bus routing, LUFS targets, reference matching
+description: Mix and master moves: gain staging, EQ/comp, bus routing, LUFS targets, reference matching
 argument-hint: "<what's wrong, or what to dial in>"
 ---
 

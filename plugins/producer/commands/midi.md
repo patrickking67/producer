@@ -1,5 +1,5 @@
 ---
-description: Compose a MIDI part — chords, bassline, drum pattern, melody. Saves a .mid file.
+description: Compose a MIDI part: chords, bassline, drum pattern, melody. Saves a .mid file.
 argument-hint: "<key, tempo, vibe, length>"
 ---
 

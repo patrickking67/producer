@@ -1,5 +1,5 @@
 /**
- * Producer — Max for Live Node.js Script
+ * Producer: Max for Live Node.js Script
  * Calls the Claude API to generate MIDI patterns and session suggestions.
  * Place this file next to your .amxd patch file.
  */
@@ -170,7 +170,7 @@ Make it groove. Subtle variation, not robotic.`;
         Max.outlet('status', pattern.description || `${bars}-bar drum pattern ready`);
       }
     } catch (e) {
-      Max.outlet('status', 'Pattern parse error — try again');
+      Max.outlet('status', 'Pattern parse error: try again');
     }
   });
 }
@@ -190,7 +190,7 @@ RULES:
 - Return ONLY a JSON object, no explanation, no markdown  
 - Use MIDI note numbers (A3=57, B3=59, C4=60, D4=62, E4=64, F4=65, G4=67, A4=69 etc)
 - For minimal/tech house: sparse, hypnotic, repetitive with subtle variation
-- Notes should breathe — not every 16th step filled
+- Notes should breathe: not every 16th step filled
 - Velocity range 70-110, longer notes for held tones
 - Duration in beats (0.25 = 16th, 0.5 = 8th, 1.0 = quarter, 2.0 = half)
 
@@ -217,7 +217,7 @@ Hypnotic and driving. Think Underground Resistance meets Defected.`;
         Max.outlet('status', pattern.description || `${bars}-bar melodic pattern ready`);
       }
     } catch (e) {
-      Max.outlet('status', 'Melodic parse error — try again');
+      Max.outlet('status', 'Melodic parse error: try again');
     }
   });
 }
@@ -264,7 +264,7 @@ Offbeat hits, dark voicings. Defected / Innervisions feel.`;
         Max.outlet('status', pattern.description || `${bars}-bar chord pattern ready`);
       }
     } catch (e) {
-      Max.outlet('status', 'Chord parse error — try again');
+      Max.outlet('status', 'Chord parse error: try again');
     }
   });
 }

@@ -1,27 +1,27 @@
 ---
 name: midi-lab
-description: Write playable MIDI for an advanced producer — chord progressions, basslines, drum patterns, melodies, arpeggios, stabs. Key/scale aware, theory-grounded. Use when the user asks to "write a chord progression", "make a bassline", "give me a drum pattern", "build a MIDI loop", or names key/tempo/genre. Outputs both a human-readable recipe and a real .mid file.
-argument-hint: "<what to compose — key, tempo, vibe, length>"
+description: Write playable MIDI for an advanced producer: chord progressions, basslines, drum patterns, melodies, arpeggios, stabs. Key/scale aware, theory-grounded. Use when the user asks to "write a chord progression", "make a bassline", "give me a drum pattern", "build a MIDI loop", or names key/tempo/genre. Outputs both a human-readable recipe and a real .mid file.
+argument-hint: "<what to compose: key, tempo, vibe, length>"
 ---
 
 # MIDI Lab
 
 ## Defaults
-- Tempo: ask, or infer from genre (124–128 house, 128–132 techno, 174 DnB, 140 trance/hard, 100 hip-hop)
+- Tempo: ask, or infer from genre (124-128 house, 128-132 techno, 174 DnB, 140 trance/hard, 100 hip-hop)
 - Key: ask. House defaults if starting fresh: A minor / F minor / G minor
 - Length: 4 bars loop / 8 bars progression / 16 bars build
 - Quantize 1/16; loosen to 1/32 + humanize for swung tech house
 
 ## Always deliver two things
 
-**1. A human-readable recipe** — table:
+**1. A human-readable recipe**: table:
 
 | Bar | Beat | Note(s) | Velocity | Length | Notes |
 |-----|------|---------|----------|--------|-------|
 
-Velocity bands: 100–115 accents, 75–95 body, 50–70 ghosts. Flat velocity is the #1 thing that makes MIDI sound programmed.
+Velocity bands: 100-115 accents, 75-95 body, 50-70 ghosts. Flat velocity is the #1 thing that makes MIDI sound programmed.
 
-**2. An actual .mid file** — save to `~/Music/Producer/midi/`, descriptive name (`tech_house_bassline_Am_126.mid`). Use `mido`:
+**2. An actual .mid file**: save to `~/Music/Producer/midi/`, descriptive name (`tech_house_bassline_Am_126.mid`). Use `mido`:
 
 ```python
 import mido, os
@@ -54,14 +54,14 @@ Naming pattern: `<genre>_<part>_<key>_<bpm>.mid`.
 ## Composition heuristics
 
 **Chord progressions**
-- Always-works: i–VI–III–VII, i–VII–VI–VII, ii–V–i (deep house)
+- Always-works: i-VI-III-VII, i-VII-VI-VII, ii-V-i (deep house)
 - Voice as 7ths / 9ths, not triads. Drop the root and let bass hold it.
 - Tight voice-leading (≤ 3 semitones between chord tones)
 
 **Basslines**
-- House: rolling 1/8 or 1/16, mostly root, octave jumps for movement, ghost notes 50–65
+- House: rolling 1/8 or 1/16, mostly root, octave jumps for movement, ghost notes 50-65
 - Tech house: more syncopation, off-beat accents
-- Check bass vs. kick — if they hit in the same 30 ms window, move bass 1/32 later or sidechain harder
+- Check bass vs. kick: if they hit in the same 30 ms window, move bass 1/32 later or sidechain harder
 
 **Drums**
 - Don't write the obvious pattern unless asked
@@ -69,8 +69,8 @@ Naming pattern: `<genre>_<part>_<key>_<bpm>.mid`.
 - House clap = tight clap + reverbed clap pitched +1 ST
 
 **Melodies / leads**
-- 5–7 note set. Pentatonic + one passing tone.
-- Repetition + one variation: A–A–A'–B
+- 5-7 note set. Pentatonic + one passing tone.
+- Repetition + one variation: A-A-A'-B
 - Tension notes (b9, #11) on weak beats only
 
 **Humanize**
@@ -80,7 +80,7 @@ Naming pattern: `<genre>_<part>_<key>_<bpm>.mid`.
 ## Live integration
 If the Ableton MCP is connected:
 1. After saving the `.mid`, offer to import directly via `session-bridge` (creates a new clip in the highlighted slot)
-2. Or, generate the notes directly into the active clip without ever writing a file — ask which the user prefers
+2. Or, generate the notes directly into the active clip without ever writing a file: ask which the user prefers
 
 ## Connectors
 - `search_live_manual` for Live 12 MIDI tools (Scale, Arpeggiator, Note Echo, Random, generative tools) before quoting parameters
@@ -89,4 +89,4 @@ If the Ableton MCP is connected:
 - `library-browser` if the user wants the MIDI to match an instrument preset they already own
 
 ## After
-Drop the `.mid` link, then ask: "Variant — busier, sparser, different key, or a complementary chord layer? Or drop it into the active clip in Live?"
+Drop the `.mid` link, then ask: "Variant: busier, sparser, different key, or a complementary chord layer? Or drop it into the active clip in Live?"

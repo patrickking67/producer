@@ -1,4 +1,4 @@
-// write_midi.js — writes Claude's MIDI output into the selected Ableton clip
+// write_midi.js: writes Claude's MIDI output into the selected Ableton clip
 // Max for Live JS object
 inlets = 1;
 outlets = 1;
@@ -29,7 +29,7 @@ function parseAndWrite(s) {
     var clipSlotPath = view.get("highlighted_clip_slot");
 
     if (!clipSlotPath || clipSlotPath.length === 0) {
-      post("No clip slot selected — click an empty slot first\n");
+      post("No clip slot selected: click an empty slot first\n");
       outlet(0, "error: select a clip slot first");
       return;
     }

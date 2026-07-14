@@ -12,7 +12,7 @@ The other skills *talk about* Ableton. This skill *acts on* Ableton.
 
 The Ableton MCP server must be running and Live must have the Remote Script loaded. If `get_session_info` errors out:
 1. Check `uvx ableton-mcp` is installed
-2. Live → Preferences → Link/Tempo/MIDI — set Control Surface to "Ableton MCP" with Input/Output `(none)`
+2. Live → Preferences → Link/Tempo/MIDI: set Control Surface to "Ableton MCP" with Input/Output `(none)`
 3. Restart Live
 
 If still failing, fall back to `ableton-docs` to walk the user through setup.
@@ -34,12 +34,12 @@ If still failing, fall back to `ableton-docs` to walk the user through setup.
 | Set clip name | `set_clip_name` |
 | Start playback / stop / record | `start_playback` / `stop_playback` |
 
-(Tool names follow the `ahujasid/ableton-mcp` server. If a tool is missing, surface that to the user — don't make one up.)
+(Tool names follow the `ahujasid/ableton-mcp` server. If a tool is missing, surface that to the user: don't make one up.)
 
 ## Operating principles
 
 1. **Do, don't describe.** If the user says "set BPM to 124", call `set_tempo(124)`. Confirm after, not before.
-2. **Confirm destructive actions.** Deleting a track, clearing all clips in a scene, overwriting a clip — ask first.
+2. **Confirm destructive actions.** Deleting a track, clearing all clips in a scene, overwriting a clip: ask first.
 3. **Read before writing.** Before adding a device, call `get_track_info` so you know what's already on the track.
 4. **Group related actions.** "Make me a tech house starter set" = sequence of 8 actions, executed in order, with one status line per action.
 5. **Save state to disk when meaningful.** After a substantial change, offer to save: Live's `save_set` if exposed, else prompt the user to ⌘S.

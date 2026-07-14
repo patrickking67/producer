@@ -1,6 +1,6 @@
-# Producer for Live — Max for Live Device Setup Guide
+# Producer for Live: Max for Live Device Setup Guide
 
-The in-Live companion to the [Producer plugin](../plugins/producer/README.md). Sits inside Ableton Live, reads your session context in real time, and uses the Claude API to generate MIDI patterns (drums, melodies, chords) and suggest what to do next — all without leaving Ableton.
+The in-Live companion to the [Producer plugin](../plugins/producer/README.md). Sits inside Ableton Live, reads your session context in real time, and uses the Claude API to generate MIDI patterns (drums, melodies, chords) and suggest what to do next, all without leaving Ableton.
 
 > Producer is the chat-side toolkit. Producer for Live is the in-Live device.
 > Use them together: Producer brainstorms, writes, and ships; Producer for Live generates inside the running set.
@@ -11,11 +11,11 @@ Created by **Patrick King**. MIT licensed.
 
 A Max for Live device that sits inside Ableton Live. It reads your session
 context in real time and uses Claude to generate MIDI patterns (drums,
-melodies, chords) and suggest what to do next — all without leaving Ableton.
+melodies, chords) and suggest what to do next, all without leaving Ableton.
 
 ---
 
-## Step 1 — Create your device folder
+## Step 1: Create your device folder
 
 1. Open Finder
 2. Navigate to: `~/Music/Ableton/User Library/Presets/MIDI Effects/Max MIDI Effect/`
@@ -24,7 +24,7 @@ melodies, chords) and suggest what to do next — all without leaving Ableton.
 
 ---
 
-## Step 2 — Open Max for Live
+## Step 2: Open Max for Live
 
 1. In Ableton, go to your browser on the left
 2. Click "Max for Live" in the sidebar
@@ -34,14 +34,14 @@ melodies, chords) and suggest what to do next — all without leaving Ableton.
 
 ---
 
-## Step 3 — Build the patch (copy exactly)
+## Step 3: Build the patch (copy exactly)
 
 In the Max patcher window, you need to create these objects.
 Use Cmd+N or double-click the canvas to add each object.
 
 ### Objects to add (type the text inside each box):
 
-TOP ROW — JavaScript engine:
+TOP ROW: JavaScript engine:
   `[node.script producer.js]`
 
 API KEY INPUT:
@@ -90,13 +90,13 @@ STATUS DISPLAY:
 
 ---
 
-## Step 4 — Create get_context.js
+## Step 4: Create get_context.js
 
 Create a new file called `get_context.js` in the same `Producer` folder.
 Paste this content:
 
 ```javascript
-// get_context.js — reads Ableton session info for Max for Live
+// get_context.js: reads Ableton session info for Max for Live
 inlets = 1;
 outlets = 1;
 
@@ -130,12 +130,12 @@ function bang() {
 
 ---
 
-## Step 5 — Create write_midi.js
+## Step 5: Create write_midi.js
 
 Create `write_midi.js` in the same folder. Paste this:
 
 ```javascript
-// write_midi.js — writes Claude's MIDI output into an Ableton clip
+// write_midi.js: writes Claude's MIDI output into an Ableton clip
 inlets = 1;
 outlets = 1;
 
@@ -184,7 +184,7 @@ function anything(s) {
 
 ---
 
-## Step 6 — Save your device
+## Step 6: Save your device
 
 1. In Max, go to File > Save As
 2. Save it as `Producer.amxd` inside your `Producer` folder
@@ -196,7 +196,7 @@ function anything(s) {
 
 ---
 
-## Step 7 — Load it in Ableton
+## Step 7: Load it in Ableton
 
 1. Close Max
 2. In Ableton's browser, navigate to `User Library > Presets > MIDI Effects > Max MIDI Effect > Producer`
@@ -213,8 +213,8 @@ function anything(s) {
 1. Load a Drum Rack on a MIDI track
 2. Create an empty clip slot (click the empty square in Session View)
 3. Click the Producer device at the bottom
-4. Hit "Get Suggestions" — 4 context-aware options appear
-5. Hit "Drum Pattern" — Claude reads your BPM and generates an 8-bar groove
+4. Hit "Get Suggestions": 4 context-aware options appear
+5. Hit "Drum Pattern": Claude reads your BPM and generates an 8-bar groove
 6. The MIDI notes appear instantly in your empty clip
 7. Press play
 

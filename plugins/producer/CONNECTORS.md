@@ -1,12 +1,12 @@
 # Connectors
 
-The Producer plugin auto-declares 7 MCP servers in `.mcp.json`. Six are cloud HTTP MCPs that OAuth on first use; the Ableton MCP runs locally via `uvx`. The Ableton Knowledge desktop extension is recommended separately.
+The Producer plugin auto-declares six remote HTTPS MCP servers in `.mcp.json`. They OAuth on first use. The Ableton MCP is configured separately as a user-local integration, and the Ableton Knowledge desktop extension is recommended separately.
 
 ## All connectors at a glance
 
 | Connector | Type | Required | Declared in `.mcp.json` | Used by |
 |---|---|---|---|---|
-| **Ableton** | stdio (local) | Recommended | Yes — `uvx ableton-mcp` | `session-bridge`, also called from `midi-lab`, `sound-design`, `mix-coach`, `arrangement`, `stem-prep`, `release-prep`, `library-browser`, `ableton-engineer` |
+| **Ableton** | stdio (local) | Recommended | No, user-local setup | `session-bridge`, also called from `midi-lab`, `sound-design`, `mix-coach`, `arrangement`, `stem-prep`, `release-prep`, `library-browser`, `ableton-engineer` |
 | **Splice** | HTTP (cloud) | Optional | Yes | `sound-design`, `producer-review`, `brainstorm`, `library-browser` (fallback) |
 | **Spotify** | HTTP (cloud) | Optional | Yes | `reference-curator`, `brainstorm`, `producer-review`, `mix-coach`, `release-prep` |
 | **Google Drive** | HTTP (cloud) | Optional | Yes | `stem-prep`, `release-prep`, `reference-curator`, `arrangement` |
@@ -18,7 +18,7 @@ Plus one separate Desktop Extension recommended for Claude users:
 
 | Extension | Type | Used by |
 |---|---|---|
-| **Ableton Knowledge** | Desktop Extension (Ableton) | `ableton-docs` — searches Live / Push / Move / Note manuals, knowledge base, video transcripts |
+| **Ableton Knowledge** | Desktop Extension (Ableton) | `ableton-docs`: searches Live / Push / Move / Note manuals, knowledge base, video transcripts |
 
 If a connector isn't authorized, the skills degrade gracefully: they tell you the gap and proceed with everything else.
 
@@ -69,7 +69,7 @@ uv tool install ableton-mcp
 
 **URL**: `https://gmailmcp.googleapis.com/mcp/v1`. OAuth on first use.
 
-**Tools used**: `search_threads`, `get_thread`, `list_drafts`, `list_labels`, `create_draft`. The skills *draft* — you send. Never auto-send promo email.
+**Tools used**: `search_threads`, `get_thread`, `list_drafts`, `list_labels`, `create_draft`. The skills *draft*: you send. Never auto-send promo email.
 
 ## 6. Google Calendar
 
@@ -87,18 +87,18 @@ uv tool install ableton-mcp
 
 Not declared in `.mcp.json` because it's a Claude Desktop Extension, not an HTTP MCP. Strongly recommended for `ableton-docs` lookups.
 
-**Install**: in Claude Desktop → Settings → Extensions → install "Ableton Knowledge" (developed by Ableton). Tools: `search_live_manual`, `search_push_manual`, `search_move_manual`, `search_note_manual`, `search_knowledge_base`, `search_videos`, `search_transcripts`, `get_ableton_knowledge_info`. Everything runs locally — no network calls.
+**Install**: in Claude Desktop → Settings → Extensions → install "Ableton Knowledge" (developed by Ableton). Tools: `search_live_manual`, `search_push_manual`, `search_move_manual`, `search_note_manual`, `search_knowledge_base`, `search_videos`, `search_transcripts`, `get_ableton_knowledge_info`. Everything runs locally: no network calls.
 
 ## Install order
 
-1. **Ableton MCP** first — it's the only one that takes setup work. Without it, `session-bridge` can't drive Live and the engineer agent can't do end-to-end runs.
-2. **Drop the plugin into Claude Code** — the remaining 6 cloud MCPs are declared in `.mcp.json` and OAuth on first use.
+1. **Ableton MCP** first: it's the only one that takes setup work. Without it, `session-bridge` can't drive Live and the engineer agent can't do end-to-end runs.
+2. **Drop the plugin into Claude Code**: the remaining 6 cloud MCPs are declared in `.mcp.json` and OAuth on first use.
 3. **Authorize what you need.** Splice and Canva are skippable; Spotify / Drive / Gmail / Calendar unlock different workflows.
 4. **Add Ableton Knowledge** in Claude Desktop if you want richer manual lookups.
 
 ## Use with Codex CLI
 
-Codex doesn't have a plugin marketplace, but it does speak MCP — so the 7 connectors above (which carry most of the actual capability) all work in Codex too. The slash commands and skills are Claude Code-specific and don't port; in Codex you just describe what you want and Codex calls the MCPs directly.
+Codex does not have a plugin marketplace, but it does speak MCP. The six remote connectors above work in Codex too. Local Ableton control must be configured separately in the user's global config. The slash commands and skills are Claude Code-specific and do not port; in Codex you describe what you want and Codex calls the MCPs directly.
 
 Paste the contents of [`codex-config.toml`](codex-config.toml) into `~/.codex/config.toml` (or use `codex mcp add --url …` for each cloud MCP to let Codex run the OAuth flow). Requires Codex CLI with streamable HTTP MCP support.
 
@@ -112,6 +112,6 @@ Paste the contents of [`codex-config.toml`](codex-config.toml) into `~/.codex/co
 | "Make me a reference playlist" | Spotify `create_playlist` | Drive (save notes) |
 | "Send stems to my engineer" | `stem-prep` | Drive (upload) + Gmail (draft) |
 | "Set up my release" | `release-prep` | Drive + Gmail + Calendar + Canva (artwork) |
-| "Set BPM to 126 / add track / load preset" | `session-bridge` (Ableton MCP) | — |
+| "Set BPM to 126 / add track / load preset" | `session-bridge` (Ableton MCP) | None |
 | "Compare my track to a reference" | Spotify `get_currently_playing` or `search` | `mix-coach` |
 | "Draft cover art / a release moodboard" | Canva `search-designs` / `import-design-from-url` | Drive (save) |
