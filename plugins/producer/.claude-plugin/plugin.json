@@ -26,8 +26,5 @@
     "google-calendar",
     "canva",
     "ableton-knowledge"
-  ],
-  "commands": "./commands",
-  "skills": "./skills",
-  "agents": "./agents"
+  ]
 }
