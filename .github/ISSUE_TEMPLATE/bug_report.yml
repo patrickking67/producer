@@ -1,0 +1,36 @@
+name: Bug report
+description: Something in the plugin, the Max for Live device or the site does not work.
+labels: [bug]
+body:
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where
+      options:
+        - Claude Code plugin (skills, commands, agent)
+        - MCP connector
+        - Max for Live device
+        - Website
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The command or prompt you ran and what you did in Live.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual result
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Producer version, Claude Code version, Ableton Live version, OS.
+  - type: markdown
+    attributes:
+      value: Do not paste API keys, OAuth tokens or private session files.

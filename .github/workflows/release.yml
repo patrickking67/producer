@@ -14,11 +14,20 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Package plugin
-        run: bash scripts/package-plugin.sh
+      - uses: ./.github/actions/setup
 
-      - name: Validate repository
-        run: python3 scripts/check-repository.py
+      # The check fails when the committed bundle differs from a fresh
+      # build, so the release ships exactly what is in the tagged commit.
+      - name: Run checks
+        run: npm run check
+
+      - name: Confirm the tag matches the plugin version
+        run: |
+          version="$(python3 -c 'import json; print(json.load(open("plugins/producer/.claude-plugin/plugin.json"))["version"])')"
+          if [ "$GITHUB_REF_NAME" != "v$version" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match plugin version v$version" >&2
+            exit 1
+          fi
 
       - name: Publish release artifact
         env:

@@ -8,10 +8,8 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/patrickking67/producer/actions/workflows/ci.yml"><img src="https://github.com/patrickking67/producer/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="https://github.com/patrickking67/producer/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-black?style=flat-square" alt="MIT License"></a>
-  <img src="https://img.shields.io/badge/Claude%20Code-plugin-black?style=flat-square" alt="Claude Code plugin">
-  <img src="https://img.shields.io/badge/Ableton%20Live-12-black?style=flat-square" alt="Ableton Live 12">
-  <img src="https://img.shields.io/badge/Max%20for%20Live-device-black?style=flat-square" alt="Max for Live">
 </p>
 
 <p align="center">
@@ -95,8 +93,10 @@ producer/
 ├── assets/
 │   ├── producer-logo.svg         ← wordmark + mark (monochrome)
 │   └── producer-mark.svg         ← icon only (square)
-├── docs/
-│   └── index.html                ← GitHub Pages landing site (Tailwind)
+├── docs/                         ← GitHub Pages site (published as-is)
+│   ├── index.html                ← landing page (Tailwind Play CDN)
+│   ├── llms.txt                  ← same as the root llms.txt
+│   └── og.png                    ← share image
 ├── plugins/
 │   └── producer/                 ← the plugin
 │       ├── .claude-plugin/plugin.json
@@ -112,7 +112,13 @@ producer/
 │   ├── get_context.js
 │   └── write_midi.js
 ├── dist/
-│   └── producer.plugin           ← zipped plugin bundle for manual install
+│   └── producer.plugin           ← reproducible plugin bundle for manual install
+├── scripts/
+│   ├── check.sh                  ← npm run check
+│   ├── check-repository.py       ← repository checks
+│   └── package-plugin.py         ← npm run package
+├── llms.txt
+├── AGENTS.md                     ← agent and contributor guide
 ├── LICENSE
 └── README.md
 ```
@@ -125,9 +131,21 @@ If you'd rather sideload the zipped bundle instead of using the marketplace, gra
 
 The [workflow examples](examples/README.md) show how Producer moves from a real production problem to concrete artifacts across arrangement, MIDI, sound design, mix decisions, and release preparation. Each example identifies the commands, expected outputs, and external connections involved.
 
-## Releases
+## Development
 
-Version tags run repository validation, rebuild the plugin bundle from source, and attach `producer.plugin` to a GitHub release. See [CHANGELOG.md](CHANGELOG.md) for shipped changes.
+Requirements: Python 3.11+, Node with npm, and the `claude` CLI (`npm install -g @anthropic-ai/claude-code@2.1.309`). The repository has no dependencies of its own.
+
+```bash
+npm run check     # manifests, frontmatter, bundle, site links, Max for Live scripts, strict plugin validation
+npm run package   # rebuild dist/producer.plugin after changing plugins/producer/
+npm run dev       # preview the site at http://127.0.0.1:4105
+```
+
+CI runs `npm run check` on every pull request and push to `main`. See [AGENTS.md](AGENTS.md) for the full guide and [CONTRIBUTING.md](CONTRIBUTING.md) for the pull request checklist.
+
+## Deploy and releases
+
+Merges to `main` run the check and publish `docs/` to [GitHub Pages](https://patrickking67.github.io/producer/). A `v*` tag that matches the plugin version runs the check and attaches the committed `dist/producer.plugin` to a GitHub release. See [CHANGELOG.md](CHANGELOG.md) for shipped changes.
 
 ## License
 

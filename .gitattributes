@@ -1,0 +1,9 @@
+* text=auto eol=lf
+
+*.plugin binary
+*.amxd binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.mid binary
+*.zip binary

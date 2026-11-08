@@ -1,0 +1,11 @@
+{
+  "name": "producer",
+  "private": true,
+  "description": "Repository scripts for the Producer Claude Code plugin and site. No dependencies.",
+  "license": "MIT",
+  "scripts": {
+    "check": "bash scripts/check.sh",
+    "package": "python3 scripts/package-plugin.py",
+    "dev": "python3 -m http.server 4105 --bind 127.0.0.1 --directory docs"
+  }
+}
