@@ -1,8 +1,10 @@
 from html.parser import HTMLParser
 import json
+import re
 from pathlib import Path
 import subprocess
 import sys
+import tomllib
 
 
 root = Path(__file__).resolve().parents[1]
@@ -46,6 +48,65 @@ for label, pattern, expected in (
     count = len(list(root.glob(pattern)))
     if count != expected:
         errors.append(f"expected {expected} {label}, found {count}")
+
+
+def frontmatter_keys(path):
+    """Return the top-level frontmatter keys and their inline values.
+
+    claude plugin validate --strict parses the YAML itself; this only checks
+    the keys this repository relies on.
+    """
+    text = path.read_text()
+    match = re.match(r"---\n(.*?)\n---\n", text, re.DOTALL)
+    if not match:
+        errors.append(f"{path.relative_to(root)}: missing frontmatter")
+        return {}
+    keys = {}
+    for line in match.group(1).splitlines():
+        found = re.match(r"([A-Za-z][\w-]*):\s*(.*)", line)
+        if found:
+            keys[found.group(1)] = found.group(2).strip()
+    return keys
+
+
+plugin_root = root / "plugins" / "producer"
+for skill in sorted(plugin_root.glob("skills/*/SKILL.md")):
+    keys = frontmatter_keys(skill)
+    if keys and keys.get("name") != skill.parent.name:
+        errors.append(f"{skill.relative_to(root)}: name must match its folder {skill.parent.name!r}")
+    if keys and not keys.get("description"):
+        errors.append(f"{skill.relative_to(root)}: missing description")
+
+for command in sorted(plugin_root.glob("commands/*.md")):
+    keys = frontmatter_keys(command)
+    if keys and not keys.get("description"):
+        errors.append(f"{command.relative_to(root)}: missing description")
+
+for agent in sorted(plugin_root.glob("agents/*.md")):
+    keys = frontmatter_keys(agent)
+    for key in ("name", "description"):
+        if keys and not keys.get(key):
+            errors.append(f"{agent.relative_to(root)}: missing {key}")
+    if "tools" in keys and not keys["tools"]:
+        errors.append(f"{agent.relative_to(root)}: tools must be a comma-separated string, not a YAML list")
+
+# The committed MCP config holds remote HTTPS servers only, and the Codex
+# config must offer the same servers.
+mcp_urls = set()
+for name, server in (load_json(plugin_root / ".mcp.json").get("mcpServers") or {}).items():
+    url = server.get("url", "")
+    if "command" in server or not url.startswith("https://"):
+        errors.append(f"plugins/producer/.mcp.json: {name} must be a remote https server")
+    mcp_urls.add(url)
+
+try:
+    codex = tomllib.loads((plugin_root / "codex-config.toml").read_text())
+except (OSError, tomllib.TOMLDecodeError) as error:
+    errors.append(f"plugins/producer/codex-config.toml: {error}")
+    codex = {}
+codex_urls = {server.get("url", "") for server in (codex.get("mcp_servers") or {}).values()}
+if codex_urls != mcp_urls:
+    errors.append("plugins/producer/codex-config.toml and .mcp.json list different servers")
 
 
 class LocalAssetParser(HTMLParser):
@@ -95,4 +156,4 @@ if errors:
     print("\n".join(errors))
     sys.exit(1)
 
-print("Validated manifests, 12 commands, 12 skills, one agent, docs, and Max for Live scripts.")
+print("Validated manifests, frontmatter, MCP configs, bundle, 12 commands, 12 skills, one agent, docs, and Max for Live scripts.")
