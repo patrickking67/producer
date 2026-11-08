@@ -1,0 +1,18 @@
+name: Feature request
+description: Suggest a new skill, command, connector or device feature.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Production problem
+      description: What are you trying to get done in Live?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What should Producer do, and what should it output?
+    validations:
+      required: true
