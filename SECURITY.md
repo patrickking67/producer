@@ -1,8 +1,30 @@
 # Security policy
 
-## Reporting
+## Supported versions
 
-Use GitHub private vulnerability reporting when available. Do not publish credentials, tokens, personal data, or exploit details in a public issue.
+| Version | Supported |
+|---|---|
+| 1.x (latest on `main`) | Yes |
+| Older | No |
+
+## Reporting a vulnerability
+
+Report privately through GitHub security advisories:
+https://github.com/patrickking67/producer/security/advisories/new
+
+Do not open a public issue, and do not include credentials, tokens or personal data in a report. Include the file or component, steps to reproduce and the impact you expect.
+
+Expect an acknowledgement within 7 days and an assessment within 30 days. Fixes ship in a new release and are noted in `CHANGELOG.md`.
+
+## Scope
+
+In scope:
+
+- The plugin under `plugins/producer/`: manifests, skills, commands, the agent and the committed MCP configuration.
+- The Max for Live scripts under `max-for-live/`.
+- The site under `docs/` and the repository workflows.
+
+Out of scope: the third-party MCP servers Producer connects to (Splice, Spotify, Google, Canva, the Ableton MCP), Ableton Live, Claude Code and the Anthropic API. Report those to their maintainers.
 
 ## Credential handling
 
