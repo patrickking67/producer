@@ -109,6 +109,15 @@ if codex_urls != mcp_urls:
     errors.append("plugins/producer/codex-config.toml and .mcp.json list different servers")
 
 
+# Pages publishes docs/, so docs/llms.txt is served at the site root. The
+# repository root copy must say the same thing.
+llms_files = [root / "llms.txt", root / "docs" / "llms.txt"]
+if not all(path.exists() for path in llms_files):
+    errors.append("llms.txt must exist at the repository root and in docs/")
+elif llms_files[0].read_text() != llms_files[1].read_text():
+    errors.append("llms.txt and docs/llms.txt differ: keep them identical")
+
+
 class LocalAssetParser(HTMLParser):
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)

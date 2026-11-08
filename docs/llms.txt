@@ -1,0 +1,38 @@
+# Producer
+
+> Producer is an Ableton Live production toolkit by Patrick King, shipped as a Claude Code marketplace plugin and a Max for Live device. The plugin has 12 skills, 12 slash commands, one task agent and six remote MCP connectors (Splice, Spotify, Google Drive, Gmail, Google Calendar, Canva) for reviewing tracks, writing MIDI, designing sounds, mixing, arranging and preparing stems and releases. The Max for Live device generates MIDI into the highlighted clip from inside Live. MIT licensed.
+
+Install in Claude Code with `/plugin marketplace add patrickking67/producer` and then `/plugin install producer@producer`.
+
+## Docs
+
+- [Website](https://patrickking67.github.io/producer/): overview, install and command reference
+- [README](https://github.com/patrickking67/producer/blob/main/README.md): install, components and repository layout
+- [Plugin README](https://github.com/patrickking67/producer/blob/main/plugins/producer/README.md): what the plugin does and how each command maps to a skill
+- [Connectors](https://github.com/patrickking67/producer/blob/main/plugins/producer/CONNECTORS.md): the bundled MCP servers and the local Ableton MCP setup
+- [Workflow examples](https://github.com/patrickking67/producer/blob/main/examples/README.md): end-to-end production tasks with the commands and expected outputs
+- [Max for Live device](https://github.com/patrickking67/producer/blob/main/max-for-live/README.md): setup guide for Producer for Live
+- [Architecture](https://github.com/patrickking67/producer/blob/main/docs/architecture.md): how the plugin, device and site fit together
+
+## Skills
+
+- [ableton-docs](https://github.com/patrickking67/producer/blob/main/plugins/producer/skills/ableton-docs/SKILL.md): Surgical lookups in the Ableton Live, Push, Move, and Note manuals plus the help center and the full YouTube catalog
+- [arrangement](https://github.com/patrickking67/producer/blob/main/plugins/producer/skills/arrangement/SKILL.md): Bar-by-bar arrangement coaching: intro/build/drop/breakdown/outro structure, energy curves, phrasing, transitions, where to place tension and release
+- [brainstorm](https://github.com/patrickking67/producer/blob/main/plugins/producer/skills/brainstorm/SKILL.md): Generate creative options for an advanced producer: track concepts, hooks, drops, breakdowns, transitions, sound directions, references
+- [library-browser](https://github.com/patrickking67/producer/blob/main/plugins/producer/skills/library-browser/SKILL.md): Walk the user's local Ableton Library: User Library, installed Packs, Sounds, Drums, Instruments, Audio Effects, MIDI Effects, Max for Live devices, Samples
+- [midi-lab](https://github.com/patrickking67/producer/blob/main/plugins/producer/skills/midi-lab/SKILL.md): Write playable MIDI for an advanced producer: chord progressions, basslines, drum patterns, melodies, arpeggios, stabs
+- [mix-coach](https://github.com/patrickking67/producer/blob/main/plugins/producer/skills/mix-coach/SKILL.md): Mix and master moves for an advanced producer: gain staging, EQ + comp strategy, bus routing, sidechain, low-end glue, vocal pocket, reference matching, LUFS targets
+- [producer-review](https://github.com/patrickking67/producer/blob/main/plugins/producer/skills/producer-review/SKILL.md): Peer-level teardown of a track, loop, or arrangement
+- [reference-curator](https://github.com/patrickking67/producer/blob/main/plugins/producer/skills/reference-curator/SKILL.md): Build a reference playlist on Spotify for a vibe, mix target, arrangement model, or track in progress
+- [release-prep](https://github.com/patrickking67/producer/blob/main/plugins/producer/skills/release-prep/SKILL.md): Release-day prep: master target, distribution metadata, artwork specs, ISRC, label deliverables, promo plan, schedule
+- [session-bridge](https://github.com/patrickking67/producer/blob/main/plugins/producer/skills/session-bridge/SKILL.md): Drive Ableton Live directly via the Ableton MCP
+- [sound-design](https://github.com/patrickking67/producer/blob/main/plugins/producer/skills/sound-design/SKILL.md): Patch recipes for Ableton stock instruments (Wavetable, Operator, Drift, Analog, Meld, Simpler, Sampler) and FX (EQ Eight, Glue, Hybrid Reverb, Echo, Roar, Spectral Resonator)
+- [stem-prep](https://github.com/patrickking67/producer/blob/main/plugins/producer/skills/stem-prep/SKILL.md): Prep stems for collaboration, mastering engineer, remixer, DJ tools (Stem Separator / Serato Stems / Virtual DJ), or sync
+
+## Optional
+
+- [Marketplace manifest](https://github.com/patrickking67/producer/blob/main/.claude-plugin/marketplace.json)
+- [Plugin manifest](https://github.com/patrickking67/producer/blob/main/plugins/producer/.claude-plugin/plugin.json)
+- [Codex MCP config](https://github.com/patrickking67/producer/blob/main/plugins/producer/codex-config.toml): the same connectors for Codex CLI
+- [Changelog](https://github.com/patrickking67/producer/blob/main/CHANGELOG.md)
+- [Security policy](https://github.com/patrickking67/producer/blob/main/SECURITY.md)
