@@ -152,14 +152,18 @@ tracked = subprocess.run(
 repository_files = [root / name for name in tracked if name and (root / name).is_file()]
 
 retired_repository = "patrickking67/" + "producer-plugin"
+em_dash = chr(0x2014)
 for path in repository_files:
     if "dist" in path.relative_to(root).parts:
         continue
     try:
-        if retired_repository in path.read_text():
-            errors.append(f"{path.relative_to(root)}: contains the retired repository slug")
+        text = path.read_text()
     except UnicodeDecodeError:
-        pass
+        continue
+    if retired_repository in text:
+        errors.append(f"{path.relative_to(root)}: contains the retired repository slug")
+    if em_dash in text:
+        errors.append(f"{path.relative_to(root)}: contains an em dash; use a colon, comma or period")
 
 if errors:
     print("\n".join(errors))
