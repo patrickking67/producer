@@ -6,18 +6,30 @@
   <title>Producer: Ableton Live production toolkit, chat-side and in-Live</title>
   <meta name="description" content="Producer is a Claude Code plugin + Max for Live device for Ableton Live. Review tracks, brainstorm, write MIDI, design sounds, mix, browse your library, arrange, prep stems and releases, and drive Live directly.">
   <meta name="author" content="Patrick King">
-  <meta name="theme-color" content="#000000">
+  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <link rel="canonical" href="https://patrickking67.github.io/producer/">
+  <link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
 
   <!-- OpenGraph -->
   <meta property="og:title" content="Producer: Ableton Live production toolkit">
   <meta property="og:description" content="Claude Code plugin + Max for Live device for advanced Ableton Live producers.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://patrickking67.github.io/producer/">
+  <meta property="og:site_name" content="Producer">
+  <meta property="og:image" content="https://patrickking67.github.io/producer/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Producer: an Ableton Live production toolkit">
+  <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" type="image/svg+xml" href="producer-mark.svg">
 
-  <!-- Tailwind Play CDN (fine for a static landing page) -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Hide reveal targets only when scripts run, so the page reads without JS -->
+  <script>document.documentElement.classList.add('js')</script>
+  <!-- Tailwind Play CDN, pinned so the page does not change under us -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -33,20 +45,12 @@
           animation: {
             'fade-up':    'fadeUp 0.8s cubic-bezier(.2,.7,.2,1) both',
             'fade-in':    'fadeIn 1.2s ease-out both',
-            'float':      'float 5s ease-in-out infinite',
-            'pulse-soft': 'pulseSoft 3s ease-in-out infinite',
-            'gradient':   'gradient 14s ease-in-out infinite',
             'blink':      'blink 1.1s steps(1) infinite',
-            'marquee':    'marquee 28s linear infinite',
           },
           keyframes: {
             fadeUp:    { '0%': { opacity: '0', transform: 'translateY(18px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
             fadeIn:    { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
-            float:     { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-6px)' } },
-            pulseSoft: { '0%,100%': { boxShadow: '0 0 0 0 rgba(10,10,10,0.18)' }, '50%': { boxShadow: '0 0 0 14px rgba(10,10,10,0)' } },
-            gradient:  { '0%,100%': { 'background-position': '0% 50%' }, '50%': { 'background-position': '100% 50%' } },
             blink:     { '50%': { opacity: '0' } },
-            marquee:   { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
           },
         },
       },
@@ -71,7 +75,7 @@
       }
     }
 
-    /* animated dark-section gradient for the install panel */
+    /* dark-section gradient for the install panel */
     .gradient-shift {
       background: linear-gradient(120deg, #0a0a0a, #18181b, #0a0a0a, #1f2937, #0a0a0a);
       background-size: 300% 300%;
@@ -83,14 +87,42 @@
       }
     }
 
-    /* scroll-reveal initial state */
-    [data-reveal] {
+    /* keyboard focus is always visible */
+    :focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -4rem;
+      z-index: 100;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* the mark's four bars record in from the left, like clips in Arrangement view */
+    .mark-record rect {
+      transform-box: fill-box;
+      transform-origin: left center;
+      animation: record 0.7s cubic-bezier(.2,.7,.2,1) both;
+    }
+    .mark-record rect:nth-child(2) { animation-delay: .12s; }
+    .mark-record rect:nth-child(3) { animation-delay: .24s; }
+    .mark-record rect:nth-child(4) { animation-delay: .36s; }
+    @keyframes record {
+      from { transform: scaleX(0); }
+      to   { transform: scaleX(1); }
+    }
+
+    /* scroll-reveal initial state (only when scripts run) */
+    .js [data-reveal] {
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.8s cubic-bezier(.2,.7,.2,1), transform 0.8s cubic-bezier(.2,.7,.2,1);
       will-change: opacity, transform;
     }
-    [data-reveal].is-visible {
+    .js [data-reveal].is-visible {
       opacity: 1;
       transform: translateY(0);
     }
@@ -114,15 +146,17 @@
         animation: none !important;
         transition: none !important;
       }
-      [data-reveal] { opacity: 1; transform: none; }
+      .js [data-reveal] { opacity: 1; transform: none; }
     }
   </style>
 </head>
 <body class="font-sans text-ink bg-paper dark:text-paper dark:bg-ink antialiased selection:bg-ink selection:text-paper dark:selection:bg-paper dark:selection:text-ink">
 
+  <a href="#main" class="skip-link px-4 py-2 rounded-full bg-ink text-paper dark:bg-paper dark:text-ink font-semibold text-sm">Skip to content</a>
+
   <!-- nav -->
   <header class="border-b border-black/10 dark:border-white/10 sticky top-0 z-50 backdrop-blur bg-paper/80 dark:bg-ink/80 animate-fade-in">
-    <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <nav aria-label="Primary" class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
       <a href="#top" class="flex items-center gap-3 group" aria-label="Producer">
         <svg viewBox="0 0 64 64" class="w-7 h-7 transition-transform duration-500 group-hover:rotate-3" fill="currentColor" aria-hidden="true">
           <rect x="8"  y="10" width="40" height="8" rx="1"/>
@@ -141,14 +175,21 @@
         <a href="#for-live" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">For Live</a>
         <a href="https://github.com/patrickking67/producer" class="inline-flex items-center gap-1 hover:underline underline-offset-4 transition-opacity hover:opacity-80">GitHub →</a>
       </div>
+      <div class="flex md:hidden items-center gap-5 text-sm">
+        <a href="#install" class="hover:underline underline-offset-4">Install</a>
+        <a href="#commands" class="hover:underline underline-offset-4">Commands</a>
+        <a href="https://github.com/patrickking67/producer" class="hover:underline underline-offset-4">GitHub</a>
+      </div>
     </nav>
   </header>
+
+  <main id="main">
 
   <!-- hero -->
   <section id="top" class="grid-bg border-b border-black/10 dark:border-white/10 overflow-hidden">
     <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
       <div class="flex items-center gap-4 mb-8 animate-fade-up" style="animation-delay:.05s">
-        <svg viewBox="0 0 64 64" class="w-12 h-12 animate-float" fill="currentColor" aria-hidden="true">
+        <svg viewBox="0 0 64 64" class="w-12 h-12 mark-record" fill="currentColor" aria-hidden="true">
           <rect x="8"  y="10" width="40" height="8" rx="1"/>
           <rect x="8"  y="22" width="48" height="8" rx="1"/>
           <rect x="8"  y="34" width="28" height="8" rx="1"/>
@@ -163,7 +204,7 @@
         Review tracks, brainstorm, write MIDI, design sounds, dial in mixes, browse your library, arrange bar-by-bar, prep stems and releases, and drive Ableton Live directly. Chat-side <em>and</em> in-Live.
       </p>
       <div class="mt-10 flex flex-wrap gap-3 animate-fade-up" style="animation-delay:.45s">
-        <a href="#install" class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-ink text-paper dark:bg-paper dark:text-ink font-semibold text-sm transition-transform hover:-translate-y-0.5 hover:opacity-90 animate-pulse-soft">
+        <a href="#install" class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-ink text-paper dark:bg-paper dark:text-ink font-semibold text-sm transition-transform hover:-translate-y-0.5 hover:opacity-90">
           Install →
         </a>
         <a href="https://github.com/patrickking67/producer" class="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-ink/20 dark:border-paper/20 font-semibold text-sm transition-transform hover:-translate-y-0.5 hover:bg-ink/5 dark:hover:bg-paper/5">
@@ -215,7 +256,7 @@
   </section>
 
   <!-- install -->
-  <section id="install" class="border-b border-black/10 dark:border-white/10 gradient-shift animate-gradient text-paper dark:text-ink">
+  <section id="install" class="border-b border-black/10 dark:border-white/10 gradient-shift text-paper dark:text-ink">
     <div class="max-w-6xl mx-auto px-6 py-20">
       <h2 data-reveal class="text-3xl md:text-4xl font-extrabold tracking-tight">Install in two commands.</h2>
       <p data-reveal class="mt-3 opacity-70 max-w-2xl">Paste these into Claude Code (web or CLI).</p>
@@ -391,7 +432,7 @@ url = "https://mcp.canva.com/mcp"</code></pre>
         </div>
         <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40 hover:bg-ink/[0.03] dark:hover:bg-paper/[0.03]">
           <code class="font-mono text-sm font-bold">/reference</code>
-          <p class="mt-2 text-sm opacity-80">Build a reference playlist across Spotify + Apple Music.</p>
+          <p class="mt-2 text-sm opacity-80">Build a Spotify reference playlist with BPM, key, and loudness notes.</p>
         </div>
         <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40 hover:bg-ink/[0.03] dark:hover:bg-paper/[0.03]">
           <code class="font-mono text-sm font-bold">/stems</code>
@@ -452,7 +493,7 @@ url = "https://mcp.canva.com/mcp"</code></pre>
           <p class="mt-1 text-sm opacity-80">Cover art templates and release moodboards.</p>
         </div>
         <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40">
-          <div class="font-bold">Ableton Knowledge <span class="text-[10px] font-mono uppercase tracking-widest opacity-50">ext</span></div>
+          <div class="font-bold">Ableton Knowledge <span class="text-[10px] font-mono uppercase tracking-widest opacity-70">ext</span></div>
           <p class="mt-1 text-sm opacity-80">Search Live / Push / Move / Note manuals, KB, video transcripts. Local-only.</p>
         </div>
       </div>
@@ -479,24 +520,27 @@ url = "https://mcp.canva.com/mcp"</code></pre>
     </div>
   </section>
 
+  </main>
+
   <!-- footer -->
   <footer class="py-14">
     <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row gap-6 md:items-center md:justify-between">
-      <div class="flex items-center gap-3">
-        <svg viewBox="0 0 64 64" class="w-7 h-7 animate-float" fill="currentColor" aria-hidden="true">
+      <div class="flex flex-wrap items-center gap-3">
+        <svg viewBox="0 0 64 64" class="w-7 h-7" fill="currentColor" aria-hidden="true">
           <rect x="8"  y="10" width="40" height="8" rx="1"/>
           <rect x="8"  y="22" width="48" height="8" rx="1"/>
           <rect x="8"  y="34" width="28" height="8" rx="1"/>
           <rect x="8"  y="46" width="44" height="8" rx="1"/>
         </svg>
         <span class="font-extrabold tracking-tight">Producer</span>
-        <span class="text-sm opacity-60">· created by Patrick King · MIT © 2026</span>
+        <span class="text-sm opacity-70">Created by Patrick King. MIT licensed.</span>
       </div>
-      <div class="flex items-center gap-5 text-sm">
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
         <a href="https://github.com/patrickking67/producer" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">GitHub</a>
         <a href="https://github.com/patrickking67/producer/blob/main/plugins/producer/CONNECTORS.md" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">Connectors</a>
         <a href="https://github.com/patrickking67/producer/blob/main/max-for-live/README.md" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">For Live</a>
         <a href="https://github.com/patrickking67/producer/blob/main/LICENSE" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">License</a>
+        <a href="llms.txt" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">llms.txt</a>
       </div>
     </div>
   </footer>
