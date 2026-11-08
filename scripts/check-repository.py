@@ -3,7 +3,6 @@ import json
 from pathlib import Path
 import subprocess
 import sys
-import zipfile
 
 
 root = Path(__file__).resolve().parents[1]
@@ -26,10 +25,13 @@ for required_file in (root / "examples" / "README.md", root / "CHANGELOG.md", ro
     if not required_file.exists():
         errors.append(f"missing required release asset: {required_file.relative_to(root)}")
 
-with zipfile.ZipFile(root / "dist" / "producer.plugin") as archive:
-    packaged_manifest = json.loads(archive.read(".claude-plugin/plugin.json"))
-    if packaged_manifest != plugin:
-        errors.append("dist/producer.plugin does not match the source plugin manifest")
+packaged = subprocess.run(
+    [sys.executable, str(root / "scripts" / "package-plugin.py"), "--check"],
+    capture_output=True,
+    text=True,
+)
+if packaged.returncode:
+    errors.append(packaged.stdout.strip() or packaged.stderr.strip())
 
 entry = (marketplace.get("plugins") or [{}])[0]
 for field in ("name", "version", "homepage", "repository"):
@@ -69,14 +71,25 @@ for script in sorted((root / "max-for-live").glob("*.js")):
 if (root / "CLAUDE.md").read_text().strip() != "@AGENTS.md":
     errors.append("CLAUDE.md must contain only @AGENTS.md")
 
+# Walk only files git knows about, so worktrees under .worktrees/ or
+# .claude/worktrees/ and other ignored folders are never scanned.
+tracked = subprocess.run(
+    ["git", "ls-files", "-z", "--cached", "--others", "--exclude-standard"],
+    cwd=root,
+    capture_output=True,
+    check=True,
+).stdout.decode().split("\0")
+repository_files = [root / name for name in tracked if name and (root / name).is_file()]
+
 retired_repository = "patrickking67/" + "producer-plugin"
-for path in root.rglob("*"):
-    if path.is_file() and ".git" not in path.parts and "dist" not in path.parts:
-        try:
-            if retired_repository in path.read_text():
-                errors.append(f"{path.relative_to(root)}: contains the retired repository slug")
-        except UnicodeDecodeError:
-            pass
+for path in repository_files:
+    if "dist" in path.relative_to(root).parts:
+        continue
+    try:
+        if retired_repository in path.read_text():
+            errors.append(f"{path.relative_to(root)}: contains the retired repository slug")
+    except UnicodeDecodeError:
+        pass
 
 if errors:
     print("\n".join(errors))

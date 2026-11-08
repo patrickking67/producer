@@ -13,7 +13,7 @@ Producer is an Ableton Live production toolkit distributed as a Claude Code mark
 
 ```bash
 python3 scripts/check-repository.py
-bash scripts/package-plugin.sh
+python3 scripts/package-plugin.py
 ```
 
 Keep marketplace and plugin manifests aligned. Use the canonical repository name `producer` in every installation command and URL. Do not commit credentials, local settings, or user-local agent state.
