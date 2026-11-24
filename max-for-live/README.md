@@ -49,6 +49,11 @@ API KEY INPUT:
   `[prepend set_api_key]`
   Connect: textedit → prepend → node.script
 
+OPTIONAL MODEL OVERRIDE:
+  `[message set_model claude-sonnet-5-5]` → `node.script`
+  The default is `claude-sonnet-5-5`. Send a different Claude model ID to change it. Current IDs are listed at
+  https://platform.claude.com/docs/en/about-claude/models/overview
+
 SESSION CONTEXT READER:
   `[live.thisdevice]`
   `[js get_context.js]`   ← see Step 4 for this file

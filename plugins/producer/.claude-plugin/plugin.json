@@ -26,5 +26,7 @@
     "google-calendar",
     "canva",
     "ableton-knowledge"
-  ]
+  ],
+  "icon": "./.claude-plugin/icon.png",
+  "privacyPolicyUrl": "https://patrickking67.github.io/producer/privacy.html"
 }

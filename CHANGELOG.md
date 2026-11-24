@@ -6,6 +6,8 @@ All notable changes to Producer are documented here. The format follows [Keep a 
 
 ### Added
 
+- Plugin icon and a privacy policy page (`docs/privacy.html`) with `privacyPolicyUrl` in `plugin.json`, which clears both plugin directory warnings.
+- `set_model` message for the Max for Live device, and a 60 second request timeout.
 - `npm run check`, one command for everything CI runs, and `npm run dev` to preview the site on port 4105.
 - CI workflow that runs the check on every pull request and push to `main`, with a pinned validator CLI.
 - Strict marketplace and plugin validation in the check.
@@ -25,6 +27,7 @@ All notable changes to Producer are documented here. The format follows [Keep a 
 
 ### Fixed
 
+- The Max for Live device defaulted to `claude-sonnet-4-5`. It now defaults to `claude-sonnet-5-5`, and its prompt no longer names a specific producer.
 - `plugin.json` no longer sets `agents` to a directory, which strict validation rejects. Components load from their default folders.
 - The site described `/reference` as using Apple Music. It uses Spotify.
 
