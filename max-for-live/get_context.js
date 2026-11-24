@@ -27,7 +27,7 @@ function bang() {
     }
 
     // Try to detect key from clip if available
-    var key = "A minor"; // default for Mina
+    var key = "A minor"; // fallback when the set key cannot be read
     try {
       var clipSlot = new LiveAPI(view.get("highlighted_clip_slot"));
       var hasClip = clipSlot.get("has_clip")[0];
