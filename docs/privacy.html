@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy - Producer</title>
+  <meta name="description" content="What data Producer collects (none) and what the services it connects to receive.">
+  <link rel="icon" href="producer-mark.svg" type="image/svg+xml">
+  <style>
+    :root { color-scheme: light dark; --bg: #fafaf7; --fg: #15161a; --muted: #5a5d66; --line: #dcdcd4; --link: #0b57d0; }
+    @media (prefers-color-scheme: dark) { :root { --bg: #111218; --fg: #f2f0ea; --muted: #a7a9b2; --line: #2b2d36; --link: #8ab4f8; } }
+    body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.6 system-ui, sans-serif; }
+    main { max-width: 42rem; margin: 0 auto; padding: 2.5rem 1rem 4rem; }
+    h1 { font-size: 2rem; line-height: 1.2; }
+    h2 { margin-top: 2rem; font-size: 1.2rem; }
+    a { color: var(--link); }
+    a:focus-visible { outline: 3px solid currentColor; outline-offset: 2px; }
+    .muted { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main id="main">
+    <p><a href="./">Producer</a></p>
+    <h1>Privacy</h1>
+    <p class="muted">Last updated 2026-11-23.</p>
+
+    <h2>What Producer collects</h2>
+    <p>Nothing. The Producer plugin is Markdown instructions, JSON manifests and connector settings. It has no server, no analytics and no telemetry, and the author receives no data from it.</p>
+
+    <h2>The Claude Code plugin</h2>
+    <p>Skills and commands run inside your own Claude Code session, so your prompts and any files you share are handled under the terms of the Claude product you use. The plugin declares six remote connectors (Splice, Spotify, Google Drive, Gmail, Google Calendar and Canva). Each one asks you to sign in with its provider the first time you use it. Producer never sees your credentials, and each provider handles your data under its own privacy policy. You can remove any connector at any time.</p>
+
+    <h2>The Max for Live device</h2>
+    <p>The device sends your request and basic session context (tempo, key, track name, track type, device names and clip length) to the Anthropic API at api.anthropic.com. It uses the API key you type in, which is held in memory while the device is loaded and is not written to disk by the scripts. No other server is contacted.</p>
+
+    <h2>The site</h2>
+    <p>This site is static and hosted on GitHub Pages. It sets no cookies and loads no analytics. GitHub may log requests under its own policy.</p>
+
+    <h2>Contact</h2>
+    <p>Questions or concerns: <a href="https://github.com/patrickking67/producer/issues">open an issue</a>. For security reports see the <a href="https://github.com/patrickking67/producer/blob/main/SECURITY.md">security policy</a>.</p>
+  </main>
+</body>
+</html>
