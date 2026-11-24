@@ -7,7 +7,9 @@
 const Max = require('max-api');
 const https = require('https');
 
-const MODEL = 'claude-sonnet-4-5';
+// Default model. Change it from the patch with a `set_model <id>` message.
+// Current IDs: https://platform.claude.com/docs/en/about-claude/models/overview
+let model = 'claude-sonnet-5-5';
 let apiKey = '';
 let sessionContext = {};
 
@@ -18,6 +20,11 @@ let sessionContext = {};
 Max.addHandler('set_api_key', (key) => {
   apiKey = key;
   Max.outlet('status', 'API key saved');
+});
+
+Max.addHandler('set_model', (id) => {
+  model = String(id);
+  Max.outlet('status', 'Model: ' + model);
 });
 
 Max.addHandler('set_context', (...args) => {
@@ -55,7 +62,7 @@ function callClaude(systemPrompt, userPrompt, onComplete) {
   Max.outlet('status', 'Thinking...');
 
   const body = JSON.stringify({
-    model: MODEL,
+    model: model,
     max_tokens: 2048,
     system: systemPrompt,
     messages: [{ role: 'user', content: userPrompt }]
@@ -78,6 +85,10 @@ function callClaude(systemPrompt, userPrompt, onComplete) {
     res.on('data', chunk => data += chunk);
     res.on('end', () => {
       try {
+        if (res.statusCode >= 400 && !data.trim().startsWith('{')) {
+          Max.outlet('status', 'HTTP ' + res.statusCode);
+          return;
+        }
         const parsed = JSON.parse(data);
         if (parsed.error) {
           Max.outlet('status', 'Error: ' + parsed.error.message);
@@ -90,6 +101,8 @@ function callClaude(systemPrompt, userPrompt, onComplete) {
       }
     });
   });
+
+  req.setTimeout(60000, () => req.destroy(new Error('request timed out after 60 s')));
 
   req.on('error', (e) => {
     Max.outlet('status', 'Network error: ' + e.message);
@@ -106,7 +119,7 @@ function callClaude(systemPrompt, userPrompt, onComplete) {
 function getSuggestions() {
   const { bpm, key, trackName, trackType, devices } = sessionContext;
 
-  const system = `You are a music production assistant for a minimal/tech house producer named Mina. 
+  const system = `You are a music production assistant for a minimal/tech house producer.
 Be concise. Return exactly 4 short suggestions (max 8 words each) as a JSON array of strings.
 Example: ["Add a driving 16th hi-hat pattern", "Write a dark bass melody in D minor", "Create a percussive offbeat groove", "Layer a chord stab on the 3"]
 Return ONLY the JSON array, nothing else.`;
