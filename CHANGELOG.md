@@ -20,6 +20,7 @@ All notable changes to Producer are documented here. The format follows [Keep a 
 
 ### Changed
 
+- Site redesign: hand-written `docs/index.html` and `docs/site.css` replace the Tailwind Play CDN and the scroll-reveal script. The page now loads no third-party code and no JavaScript, supports light and dark through `prefers-color-scheme`, and has a session-view clip grid and a MIDI clip illustration in place of the grid background.
 - `dist/producer.plugin` is now built reproducibly, and the check fails if it differs from a fresh build of `plugins/producer/`.
 - Releases ship the committed bundle and refuse a tag that does not match the plugin version.
 - Site: skip link, main landmark, visible focus, a mobile nav, content visible without scripts, pinned Tailwind CDN and fewer looping animations.
