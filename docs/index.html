@@ -1,20 +1,18 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Producer: Ableton Live production toolkit, chat-side and in-Live</title>
-  <meta name="description" content="Producer is a Claude Code plugin + Max for Live device for Ableton Live. Review tracks, brainstorm, write MIDI, design sounds, mix, browse your library, arrange, prep stems and releases, and drive Live directly.">
+  <meta name="description" content="Producer is a Claude Code plugin and a Max for Live device for Ableton Live. Review tracks, brainstorm, write MIDI, design sounds, mix, arrange, prep stems and releases, and drive Live directly.">
   <meta name="author" content="Patrick King">
-  <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f4ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e0f13" media="(prefers-color-scheme: dark)">
   <meta name="color-scheme" content="light dark">
   <link rel="canonical" href="https://patrickking67.github.io/producer/">
   <link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
-
-  <!-- OpenGraph -->
   <meta property="og:title" content="Producer: Ableton Live production toolkit">
-  <meta property="og:description" content="Claude Code plugin + Max for Live device for advanced Ableton Live producers.">
+  <meta property="og:description" content="Claude Code plugin and Max for Live device for Ableton Live producers.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://patrickking67.github.io/producer/">
   <meta property="og:site_name" content="Producer">
@@ -23,349 +21,169 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Producer: an Ableton Live production toolkit">
   <meta name="twitter:card" content="summary_large_image">
-
   <link rel="icon" type="image/svg+xml" href="producer-mark.svg">
-
-  <!-- Hide reveal targets only when scripts run, so the page reads without JS -->
-  <script>document.documentElement.classList.add('js')</script>
-  <!-- Tailwind Play CDN, pinned so the page does not change under us -->
-  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Helvetica', 'Arial', 'sans-serif'],
-            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
-          },
-          colors: {
-            ink: '#0a0a0a',
-            paper: '#fafafa',
-          },
-          animation: {
-            'fade-up':    'fadeUp 0.8s cubic-bezier(.2,.7,.2,1) both',
-            'fade-in':    'fadeIn 1.2s ease-out both',
-            'blink':      'blink 1.1s steps(1) infinite',
-          },
-          keyframes: {
-            fadeUp:    { '0%': { opacity: '0', transform: 'translateY(18px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
-            fadeIn:    { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
-            blink:     { '50%': { opacity: '0' } },
-          },
-        },
-      },
-    };
-  </script>
-  <style>
-    html { background: #fafafa; }
-    @media (prefers-color-scheme: dark) {
-      html { background: #0a0a0a; }
-    }
-    .grid-bg {
-      background-image:
-        linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
-      background-size: 32px 32px;
-    }
-    @media (prefers-color-scheme: dark) {
-      .grid-bg {
-        background-image:
-          linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-      }
-    }
-
-    /* dark-section gradient for the install panel */
-    .gradient-shift {
-      background: linear-gradient(120deg, #0a0a0a, #18181b, #0a0a0a, #1f2937, #0a0a0a);
-      background-size: 300% 300%;
-    }
-    @media (prefers-color-scheme: dark) {
-      .gradient-shift {
-        background: linear-gradient(120deg, #fafafa, #f5f5f4, #fafafa, #e7e5e4, #fafafa);
-        background-size: 300% 300%;
-      }
-    }
-
-    /* keyboard focus is always visible */
-    :focus-visible {
-      outline: 2px solid currentColor;
-      outline-offset: 3px;
-      border-radius: 4px;
-    }
-    .skip-link {
-      position: absolute;
-      left: 1rem;
-      top: -4rem;
-      z-index: 100;
-    }
-    .skip-link:focus { top: 1rem; }
-
-    /* the mark's four bars record in from the left, like clips in Arrangement view */
-    .mark-record rect {
-      transform-box: fill-box;
-      transform-origin: left center;
-      animation: record 0.7s cubic-bezier(.2,.7,.2,1) both;
-    }
-    .mark-record rect:nth-child(2) { animation-delay: .12s; }
-    .mark-record rect:nth-child(3) { animation-delay: .24s; }
-    .mark-record rect:nth-child(4) { animation-delay: .36s; }
-    @keyframes record {
-      from { transform: scaleX(0); }
-      to   { transform: scaleX(1); }
-    }
-
-    /* scroll-reveal initial state (only when scripts run) */
-    .js [data-reveal] {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.8s cubic-bezier(.2,.7,.2,1), transform 0.8s cubic-bezier(.2,.7,.2,1);
-      will-change: opacity, transform;
-    }
-    .js [data-reveal].is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* card hover lift */
-    .card-lift {
-      transition: transform 0.4s cubic-bezier(.2,.7,.2,1), border-color 0.3s, background-color 0.3s, box-shadow 0.4s;
-    }
-    .card-lift:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px -16px rgba(0,0,0,0.18);
-    }
-
-    /* command tile subtle */
-    .cmd-tile { transition: transform .3s cubic-bezier(.2,.7,.2,1), background-color .3s, border-color .3s; }
-    .cmd-tile:hover { transform: translateY(-2px); }
-
-    /* respect users who don't want motion */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
-      }
-      .js [data-reveal] { opacity: 1; transform: none; }
-    }
-  </style>
+  <link rel="stylesheet" href="site.css">
 </head>
-<body class="font-sans text-ink bg-paper dark:text-paper dark:bg-ink antialiased selection:bg-ink selection:text-paper dark:selection:bg-paper dark:selection:text-ink">
-
-  <a href="#main" class="skip-link px-4 py-2 rounded-full bg-ink text-paper dark:bg-paper dark:text-ink font-semibold text-sm">Skip to content</a>
-
-  <!-- nav -->
-  <header class="border-b border-black/10 dark:border-white/10 sticky top-0 z-50 backdrop-blur bg-paper/80 dark:bg-ink/80 animate-fade-in">
-    <nav aria-label="Primary" class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#top" class="flex items-center gap-3 group" aria-label="Producer">
-        <svg viewBox="0 0 64 64" class="w-7 h-7 transition-transform duration-500 group-hover:rotate-3" fill="currentColor" aria-hidden="true">
-          <rect x="8"  y="10" width="40" height="8" rx="1"/>
-          <rect x="8"  y="22" width="48" height="8" rx="1"/>
-          <rect x="8"  y="34" width="28" height="8" rx="1"/>
-          <rect x="8"  y="46" width="44" height="8" rx="1"/>
-        </svg>
-        <span class="font-extrabold tracking-tight text-lg">Producer</span>
-      </a>
-      <div class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#install" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">Install</a>
-        <a href="#claude-app" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">Claude</a>
-        <a href="#codex" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">Codex</a>
-        <a href="#commands" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">Commands</a>
-        <a href="#connectors" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">Connectors</a>
-        <a href="#for-live" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">For Live</a>
-        <a href="https://github.com/patrickking67/producer" class="inline-flex items-center gap-1 hover:underline underline-offset-4 transition-opacity hover:opacity-80">GitHub →</a>
-      </div>
-      <div class="flex md:hidden items-center gap-5 text-sm">
-        <a href="#install" class="hover:underline underline-offset-4">Install</a>
-        <a href="#commands" class="hover:underline underline-offset-4">Commands</a>
-        <a href="https://github.com/patrickking67/producer" class="hover:underline underline-offset-4">GitHub</a>
-      </div>
-    </nav>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="bar">
+    <div class="wrap">
+      <a class="brand" href="#top"><svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><rect x="8" y="10" width="40" height="8" rx="1"/><rect x="8" y="22" width="48" height="8" rx="1"/><rect x="8" y="34" width="28" height="8" rx="1"/><rect x="8" y="46" width="44" height="8" rx="1"/></svg><span>Producer</span></a>
+      <nav aria-label="Primary">
+        <a href="#install">Install</a>
+        <a href="#commands">Commands</a>
+        <a href="#connectors">Connectors</a>
+        <a class="opt" href="#codex">Codex</a>
+        <a class="opt" href="#for-live">For Live</a>
+        <a href="https://github.com/patrickking67/producer">GitHub</a>
+      </nav>
+    </div>
   </header>
 
   <main id="main">
-
-  <!-- hero -->
-  <section id="top" class="grid-bg border-b border-black/10 dark:border-white/10 overflow-hidden">
-    <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
-      <div class="flex items-center gap-4 mb-8 animate-fade-up" style="animation-delay:.05s">
-        <svg viewBox="0 0 64 64" class="w-12 h-12 mark-record" fill="currentColor" aria-hidden="true">
-          <rect x="8"  y="10" width="40" height="8" rx="1"/>
-          <rect x="8"  y="22" width="48" height="8" rx="1"/>
-          <rect x="8"  y="34" width="28" height="8" rx="1"/>
-          <rect x="8"  y="46" width="44" height="8" rx="1"/>
-        </svg>
-        <span class="text-xs uppercase tracking-[0.2em] font-semibold opacity-70">Ableton Live · Claude Code · Max for Live</span>
-      </div>
-      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-[0.95] animate-fade-up" style="animation-delay:.15s">
-        An Ableton Live<br>production toolkit<span class="inline-block animate-blink">.</span>
-      </h1>
-      <p class="mt-6 text-lg md:text-xl max-w-2xl opacity-80 animate-fade-up" style="animation-delay:.3s">
-        Review tracks, brainstorm, write MIDI, design sounds, dial in mixes, browse your library, arrange bar-by-bar, prep stems and releases, and drive Ableton Live directly. Chat-side <em>and</em> in-Live.
-      </p>
-      <div class="mt-10 flex flex-wrap gap-3 animate-fade-up" style="animation-delay:.45s">
-        <a href="#install" class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-ink text-paper dark:bg-paper dark:text-ink font-semibold text-sm transition-transform hover:-translate-y-0.5 hover:opacity-90">
-          Install →
-        </a>
-        <a href="https://github.com/patrickking67/producer" class="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-ink/20 dark:border-paper/20 font-semibold text-sm transition-transform hover:-translate-y-0.5 hover:bg-ink/5 dark:hover:bg-paper/5">
-          View on GitHub
-        </a>
-      </div>
-      <p class="mt-8 text-sm opacity-60 animate-fade-up" style="animation-delay:.6s">
-        Created by <strong>Patrick King</strong>. MIT licensed.
-      </p>
-    </div>
-  </section>
-
-  <!-- two surfaces -->
-  <section class="border-b border-black/10 dark:border-white/10">
-    <div class="max-w-6xl mx-auto px-6 py-20">
-      <h2 data-reveal class="text-3xl md:text-4xl font-extrabold tracking-tight">Two surfaces, one product.</h2>
-      <p data-reveal class="mt-3 opacity-70 max-w-2xl">Use them together. Producer brainstorms, writes, and ships from the chat box. Producer for Live generates inside the running set.</p>
-
-      <div class="grid md:grid-cols-2 gap-6 mt-12">
-        <article data-reveal class="card-lift rounded-2xl border border-ink/15 dark:border-paper/15 p-8 hover:bg-ink/[0.02] dark:hover:bg-paper/[0.02] hover:border-ink/30 dark:hover:border-paper/30">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="text-xs font-mono uppercase tracking-widest opacity-60">Claude Code plugin</span>
-          </div>
-          <h3 class="text-2xl font-bold tracking-tight">Producer</h3>
-          <p class="mt-3 opacity-80">12 skills, 12 slash commands, 1 agent, and 6 bundled remote MCP connectors. Reviews, brainstorms, writes MIDI, designs sounds, mixes, browses your library, arranges, preps stems and releases, and drives Live directly.</p>
-          <ul class="mt-5 text-sm space-y-1 opacity-80">
-            <li>· Works in <strong>Claude Code on the web</strong> (cowork) and locally</li>
-            <li>· Auto-installs 6 cloud MCPs (OAuth on first use)</li>
-            <li>· Ableton MCP runs locally for live session control</li>
-          </ul>
-          <a href="#install" class="mt-6 inline-flex items-center gap-1 font-semibold text-sm hover:underline underline-offset-4 transition-transform hover:translate-x-0.5">Install instructions →</a>
-        </article>
-
-        <article id="for-live" data-reveal class="card-lift rounded-2xl border border-ink/15 dark:border-paper/15 p-8 hover:bg-ink/[0.02] dark:hover:bg-paper/[0.02] hover:border-ink/30 dark:hover:border-paper/30">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="text-xs font-mono uppercase tracking-widest opacity-60">Max for Live device</span>
-          </div>
-          <h3 class="text-2xl font-bold tracking-tight">Producer for Live</h3>
-          <p class="mt-3 opacity-80">A Max for Live MIDI Effect that sits inside Ableton, reads your session in real time, and generates drum, melody, and chord patterns into the highlighted clip without leaving Live.</p>
-          <ul class="mt-5 text-sm space-y-1 opacity-80">
-            <li>· Reads BPM, key, track, devices automatically</li>
-            <li>· Generates 1, 2, 4, 8, 16-bar clips</li>
-            <li>· Bring your own Anthropic API key</li>
-          </ul>
-          <a href="https://github.com/patrickking67/producer/blob/main/max-for-live/README.md" class="mt-6 inline-flex items-center gap-1 font-semibold text-sm hover:underline underline-offset-4 transition-transform hover:translate-x-0.5">Setup guide →</a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- install -->
-  <section id="install" class="border-b border-black/10 dark:border-white/10 gradient-shift text-paper dark:text-ink">
-    <div class="max-w-6xl mx-auto px-6 py-20">
-      <h2 data-reveal class="text-3xl md:text-4xl font-extrabold tracking-tight">Install in two commands.</h2>
-      <p data-reveal class="mt-3 opacity-70 max-w-2xl">Paste these into Claude Code (web or CLI).</p>
-
-      <div data-reveal class="mt-10 rounded-2xl border border-paper/20 dark:border-ink/20 overflow-hidden">
-        <div class="px-5 py-3 border-b border-paper/15 dark:border-ink/15 text-xs font-mono uppercase tracking-widest opacity-60">marketplace</div>
-        <pre class="px-5 py-6 font-mono text-sm md:text-base leading-relaxed overflow-x-auto"><code>/plugin marketplace add patrickking67/producer
-/plugin install producer@producer</code></pre>
-      </div>
-
-      <p data-reveal class="mt-6 text-sm opacity-70 max-w-2xl">
-        The 6 cloud MCPs (Splice, Spotify, Google Drive, Gmail, Google Calendar, Canva) OAuth on first use. The Ableton MCP runs locally: install it separately, instructions in <a class="underline underline-offset-4" href="https://github.com/patrickking67/producer/blob/main/plugins/producer/CONNECTORS.md">CONNECTORS.md</a>.
-      </p>
-    </div>
-  </section>
-
-  <!-- claude app install -->
-  <section id="claude-app" class="border-b border-black/10 dark:border-white/10">
-    <div class="max-w-6xl mx-auto px-6 py-20">
-      <div class="flex items-baseline gap-3">
-        <span data-reveal class="text-xs font-mono uppercase tracking-widest opacity-60">For the Claude app</span>
-      </div>
-      <h2 data-reveal class="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight">Add the connectors inside Claude.</h2>
-      <p data-reveal class="mt-3 opacity-70 max-w-2xl">The Producer plugin itself runs in Claude Code (CLI or web). The MCP connectors it relies on are also addable directly in Claude (web or desktop): useful if you want the toolkit's connectors in your normal chat surface too.</p>
-
-      <ol data-reveal class="mt-8 space-y-3 text-sm md:text-base opacity-90 list-decimal list-inside marker:opacity-60">
-        <li>Open <strong>Claude</strong> (web or desktop).</li>
-        <li>Go to <strong>Settings → Connectors</strong>.</li>
-        <li>Click <strong>"Add custom connector"</strong> (or pick from the directory for the ones marked "official").</li>
-        <li>Paste the connector URL below and authenticate.</li>
-        <li>In Claude Desktop, install the <strong>Ableton Knowledge</strong> Desktop Extension separately (Settings → Extensions).</li>
-      </ol>
-
-      <div class="grid md:grid-cols-2 gap-3 mt-10">
-        <div data-reveal class="card-lift rounded-xl border border-ink/15 dark:border-paper/15 p-5">
-          <div class="flex items-center justify-between gap-3">
-            <div class="font-bold">Splice</div>
-            <span class="text-[10px] font-mono uppercase tracking-widest opacity-60">official</span>
-          </div>
-          <p class="mt-1 text-sm opacity-80">Sound search, stack building, downloads.</p>
-          <code class="mt-3 block font-mono text-xs opacity-80 break-all">https://mcp.splice.com/mcp</code>
+    <section class="hero" id="top">
+      <div class="wrap">
+        <p class="eyebrow">Ableton Live &middot; Claude Code &middot; Max for Live</p>
+        <h1>An Ableton Live <em>production toolkit.</em></h1>
+        <p class="lede">Review tracks, brainstorm, write MIDI, design sounds, dial in mixes, arrange bar by bar, prep stems and releases, and drive Live directly. In the chat box and inside the set.</p>
+        <div class="cta">
+          <a class="btn primary" href="#install">Install</a>
+          <a class="btn" href="https://github.com/patrickking67/producer">View on GitHub</a>
         </div>
-        <div data-reveal class="card-lift rounded-xl border border-ink/15 dark:border-paper/15 p-5">
-          <div class="flex items-center justify-between gap-3">
-            <div class="font-bold">Spotify</div>
-            <span class="text-[10px] font-mono uppercase tracking-widest opacity-60">official</span>
-          </div>
-          <p class="mt-1 text-sm opacity-80">References, audio features, playlists.</p>
-          <code class="mt-3 block font-mono text-xs opacity-80 break-all">https://mcp-gateway-external-pilot.spotify.net/mcp</code>
-        </div>
-        <div data-reveal class="card-lift rounded-xl border border-ink/15 dark:border-paper/15 p-5">
-          <div class="flex items-center justify-between gap-3">
-            <div class="font-bold">Google Drive</div>
-            <span class="text-[10px] font-mono uppercase tracking-widest opacity-60">by Google</span>
-          </div>
-          <p class="mt-1 text-sm opacity-80">Search, read, upload stems / references / masters.</p>
-          <code class="mt-3 block font-mono text-xs opacity-80 break-all">https://drivemcp.googleapis.com/mcp/v1</code>
-        </div>
-        <div data-reveal class="card-lift rounded-xl border border-ink/15 dark:border-paper/15 p-5">
-          <div class="flex items-center justify-between gap-3">
-            <div class="font-bold">Gmail</div>
-            <span class="text-[10px] font-mono uppercase tracking-widest opacity-60">by Google</span>
-          </div>
-          <p class="mt-1 text-sm opacity-80">Draft promo, label, and mastering hand-off emails.</p>
-          <code class="mt-3 block font-mono text-xs opacity-80 break-all">https://gmailmcp.googleapis.com/mcp/v1</code>
-        </div>
-        <div data-reveal class="card-lift rounded-xl border border-ink/15 dark:border-paper/15 p-5">
-          <div class="flex items-center justify-between gap-3">
-            <div class="font-bold">Google Calendar</div>
-            <span class="text-[10px] font-mono uppercase tracking-widest opacity-60">by Google</span>
-          </div>
-          <p class="mt-1 text-sm opacity-80">Schedule release-day timeline (−28 / −21 / −14 / −7 / 0).</p>
-          <code class="mt-3 block font-mono text-xs opacity-80 break-all">https://calendarmcp.googleapis.com/mcp/v1</code>
-        </div>
-        <div data-reveal class="card-lift rounded-xl border border-ink/15 dark:border-paper/15 p-5">
-          <div class="flex items-center justify-between gap-3">
-            <div class="font-bold">Canva</div>
-            <span class="text-[10px] font-mono uppercase tracking-widest opacity-60">official</span>
-          </div>
-          <p class="mt-1 text-sm opacity-80">Cover art templates, release moodboards, exports.</p>
-          <code class="mt-3 block font-mono text-xs opacity-80 break-all">https://mcp.canva.com/mcp</code>
-        </div>
-        <div data-reveal class="card-lift md:col-span-2 rounded-xl border border-ink/15 dark:border-paper/15 p-5">
-          <div class="flex items-center justify-between gap-3">
-            <div class="font-bold">Ableton Knowledge</div>
-            <span class="text-[10px] font-mono uppercase tracking-widest opacity-60">desktop extension</span>
-          </div>
-          <p class="mt-1 text-sm opacity-80">Local search across the Live, Push, Move and Note manuals, the knowledge base, and video transcripts. Runs entirely on your machine. Install in <strong>Claude Desktop → Settings → Extensions</strong>.</p>
+        <div class="install-line" role="note" aria-label="Install command"><b>$ </b>/plugin marketplace add patrickking67/producer</div>
+        <p class="meta">Created by Patrick King. MIT licensed.</p>
+        <div class="session" aria-hidden="true">
+        <div class="lab"></div><div class="lab" style="justify-content:center;padding:0">1</div><div class="lab" style="justify-content:center;padding:0">2</div><div class="lab" style="justify-content:center;padding:0">3</div><div class="lab" style="justify-content:center;padding:0">4</div><div class="lab" style="justify-content:center;padding:0">5</div><div class="lab" style="justify-content:center;padding:0">6</div>
+        <div class="lab">Drums</div><div class="clip c1 on"></div><div class="clip c1 on"></div><div class="clip c1 on"></div><div class="clip "></div><div class="clip c1 on"></div><div class="clip c1 on"></div>
+        <div class="lab">Bass</div><div class="clip "></div><div class="clip c3 on"></div><div class="clip c3 on"></div><div class="clip c3 on"></div><div class="clip "></div><div class="clip c3 on"></div>
+        <div class="lab">Keys</div><div class="clip c4 on"></div><div class="clip "></div><div class="clip c4 on"></div><div class="clip "></div><div class="clip c4 on"></div><div class="clip "></div>
+        <div class="lab">FX</div><div class="clip "></div><div class="clip "></div><div class="clip c5 on"></div><div class="clip "></div><div class="clip "></div><div class="clip c5 on"></div>
         </div>
       </div>
+    </section>
 
-      <p data-reveal class="mt-8 text-sm opacity-70 max-w-3xl">
-        For full session control (drive Live: BPM, tracks, devices, clips) you also need the <strong>Ableton MCP</strong> (local stdio, by <a class="underline underline-offset-4" href="https://github.com/ahujasid/ableton-mcp">@ahujasid</a>). Setup steps in <a class="underline underline-offset-4" href="https://github.com/patrickking67/producer/blob/main/plugins/producer/CONNECTORS.md#1-ableton-mcp">CONNECTORS.md → Ableton MCP</a>.
-      </p>
-    </div>
-  </section>
-
-  <!-- codex -->
-  <section id="codex" class="border-b border-black/10 dark:border-white/10">
-    <div class="max-w-6xl mx-auto px-6 py-20">
-      <div class="flex items-baseline gap-3">
-        <span data-reveal class="text-xs font-mono uppercase tracking-widest opacity-60">For Codex CLI</span>
+    <section id="surfaces">
+      <div class="wrap">
+        <p class="eyebrow">What you get</p>
+        <h2>Two surfaces, one product.</h2>
+        <p class="sub">Use them together. Producer brainstorms, writes and ships from the chat box. Producer for Live generates inside the running set.</p>
+        <div class="grid g2">
+          <article class="card">
+            <span class="tag">Claude Code plugin</span>
+            <h3>Producer</h3>
+            <p>12 skills, 12 slash commands, 1 agent and 6 bundled remote MCP connectors. Reviews, brainstorms, writes MIDI, designs sounds, mixes, browses your library, arranges, preps stems and releases, and drives Live directly.</p>
+            <ul>
+              <li>Works in Claude Code on the web and locally</li>
+              <li>Declares 6 cloud MCPs that sign in on first use</li>
+              <li>The Ableton MCP runs locally for live session control</li>
+            </ul>
+            <a class="more" href="#install">Install instructions</a>
+          </article>
+          <article class="card" id="for-live">
+            <span class="tag">Max for Live device</span>
+            <h3>Producer for Live</h3>
+            <p>A Max for Live MIDI Effect that sits inside Ableton, reads your session, and generates drum, melody and chord patterns into the highlighted clip without leaving Live.</p>
+            <ul>
+              <li>Reads BPM, key, track and devices</li>
+              <li>Generates 1, 2, 4, 8 or 16 bar clips</li>
+              <li>Bring your own Anthropic API key</li>
+            </ul>
+            <a class="more" href="https://github.com/patrickking67/producer/blob/main/max-for-live/README.md">Setup guide</a>
+          </article>
+        </div>
+        <div style="margin-top:2rem">
+          <svg class="roll" viewBox="0 0 640 200" preserveAspectRatio="none" role="img" aria-label="Illustration of a four-bar bassline as notes in a MIDI clip"><line x1="160" y1="0" x2="160" y2="200" stroke="#2a2c36" stroke-width="1.5"/><line x1="320" y1="0" x2="320" y2="200" stroke="#2a2c36" stroke-width="1.5"/><line x1="480" y1="0" x2="480" y2="200" stroke="#2a2c36" stroke-width="1.5"/><rect x="1.0" y="68.7" width="28.0" height="18.2" rx="2" fill="var(--c3)"/><rect x="41.0" y="68.7" width="18.0" height="18.2" rx="2" fill="var(--c3)"/><rect x="71.0" y="2.0" width="28.0" height="18.2" rx="2" fill="var(--c3)"/><rect x="121.0" y="68.7" width="18.0" height="18.2" rx="2" fill="var(--c3)"/><rect x="161.0" y="113.1" width="28.0" height="18.2" rx="2" fill="var(--c3)"/><rect x="201.0" y="113.1" width="18.0" height="18.2" rx="2" fill="var(--c3)"/><rect x="231.0" y="46.4" width="28.0" height="18.2" rx="2" fill="var(--c3)"/><rect x="281.0" y="113.1" width="18.0" height="18.2" rx="2" fill="var(--c3)"/><rect x="321.0" y="157.6" width="28.0" height="18.2" rx="2" fill="var(--c3)"/><rect x="361.0" y="157.6" width="18.0" height="18.2" rx="2" fill="var(--c3)"/><rect x="391.0" y="68.7" width="28.0" height="18.2" rx="2" fill="var(--c3)"/><rect x="441.0" y="157.6" width="18.0" height="18.2" rx="2" fill="var(--c3)"/><rect x="481.0" y="179.8" width="28.0" height="18.2" rx="2" fill="var(--c3)"/><rect x="521.0" y="179.8" width="18.0" height="18.2" rx="2" fill="var(--c3)"/><rect x="551.0" y="113.1" width="28.0" height="18.2" rx="2" fill="var(--c3)"/><rect x="601.0" y="68.7" width="28.0" height="18.2" rx="2" fill="var(--c3)"/></svg>
+          <p class="sub" style="margin:.6rem 0 0;font-size:.85rem">Illustration: a four-bar bassline as notes in a MIDI clip.</p>
+        </div>
       </div>
-      <h2 data-reveal class="mt-2 text-3xl md:text-4xl font-extrabold tracking-tight">Same connectors, in Codex.</h2>
-      <p data-reveal class="mt-3 opacity-70 max-w-2xl">Codex does not have a plugin marketplace, but it does speak MCP. Paste this block into <code class="font-mono text-xs px-1.5 py-0.5 rounded bg-ink/5 dark:bg-paper/5">~/.codex/config.toml</code> and Codex gets the same 6 remote connectors. Local Ableton control is configured separately. The slash commands and skills are Claude Code-specific. In Codex, describe what you want.</p>
+    </section>
 
-      <div data-reveal class="mt-10 rounded-2xl border border-ink/15 dark:border-paper/15 overflow-hidden">
-        <div class="px-5 py-3 border-b border-ink/15 dark:border-paper/15 text-xs font-mono uppercase tracking-widest opacity-60">~/.codex/config.toml</div>
-        <pre class="px-5 py-6 font-mono text-xs md:text-sm leading-relaxed overflow-x-auto bg-ink/[0.02] dark:bg-paper/[0.02]"><code># Remote connectors: OAuth on first use
+    <section id="install">
+      <div class="wrap">
+        <p class="eyebrow">Quick start</p>
+        <h2>Install in two commands.</h2>
+        <p class="sub">Paste these into Claude Code, on the web or in the CLI.</p>
+        <div class="term">
+          <div class="head">Claude Code</div>
+<pre><code><span class="p">&gt; </span>/plugin marketplace add patrickking67/producer
+<span class="p">&gt; </span>/plugin install producer@producer</code></pre>
+        </div>
+        <p class="sub" style="margin-top:1.25rem">The 6 cloud MCPs (Splice, Spotify, Google Drive, Gmail, Google Calendar, Canva) sign in on first use. The Ableton MCP runs locally: install it separately, see <a href="https://github.com/patrickking67/producer/blob/main/plugins/producer/CONNECTORS.md">CONNECTORS.md</a>.</p>
+      </div>
+    </section>
+
+    <section id="commands">
+      <div class="wrap">
+        <p class="eyebrow">Slash commands</p>
+        <h2>12 slash commands.</h2>
+        <p class="sub">Each maps to a skill that also triggers from plain language. Describe what you want.</p>
+        <div class="grid g3">
+        <div class="card cmd"><code>/review</code><p>Peer-level teardown of a track, loop, or arrangement.</p></div>
+        <div class="card cmd"><code>/brainstorm</code><p>3-5 distinct creative directions, each with a reference.</p></div>
+        <div class="card cmd"><code>/midi</code><p>Chord progressions, basslines, drum patterns and melodies as <code>.mid</code>.</p></div>
+        <div class="card cmd"><code>/sound</code><p>Patch recipes for stock Ableton devices, with a Splice fallback.</p></div>
+        <div class="card cmd"><code>/mix</code><p>Mix and master moves: LUFS, sidechain, low-end glue, references.</p></div>
+        <div class="card cmd"><code>/docs</code><p>Surgical lookups in the Live, Push, Move and Note manuals and the knowledge base.</p></div>
+        <div class="card cmd"><code>/library</code><p>Browse your User Library and Packs like Live's left-hand browser.</p></div>
+        <div class="card cmd"><code>/arrange</code><p>Bar-by-bar arrangement coach: energy curve and section moves.</p></div>
+        <div class="card cmd"><code>/reference</code><p>Build a Spotify reference playlist with BPM, key and loudness notes.</p></div>
+        <div class="card cmd"><code>/stems</code><p>Prep stems for mastering, remix, sync, DJ tools and live.</p></div>
+        <div class="card cmd"><code>/release</code><p>Master target, metadata, artwork, ISRC and release-day schedule.</p></div>
+        <div class="card cmd"><code>/session</code><p>Drive Live directly: create tracks, load presets, fire clips.</p></div>
+        </div>
+        <div class="card" style="margin-top:1rem">
+          <span class="tag">Agent</span>
+          <h3>ableton-engineer</h3>
+          <p>End-to-end multi-step tasks, such as a tech house starter set, a release prep across streaming and Beatport, or a comparison against five references with the mix moves written out. It reads session state, calls the right skills in order, files artifacts and returns a short status.</p>
+          <a class="more" href="https://github.com/patrickking67/producer/blob/main/examples/README.md">Read four complete workflows</a>
+        </div>
+        <div class="term" style="margin-top:2rem">
+          <div class="head">Quick taste</div>
+<pre><code><span class="p">&gt; </span>/brainstorm I'm stuck on the second drop of my tech house track in F minor at 126
+<span class="p">&gt; </span>/midi 4-bar tech house bassline in F minor, 126 bpm, dark, swung
+<span class="p">&gt; </span>/sound make me a Drum Rack kick: punchy 60 Hz
+<span class="p">&gt; </span>/arrange draft the full 6-minute arrangement for the loop I just imported
+<span class="p">&gt; </span>/mix my drop dies in the car
+<span class="p">&gt; </span>/release prep this for a Beatport release on July 25
+<span class="p">&gt; </span>/session set BPM to 126, create 4 MIDI tracks, load my favourite drum rack</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="connectors">
+      <div class="wrap">
+        <p class="eyebrow">Connectors</p>
+        <h2>6 remote connectors plus local Ableton control.</h2>
+        <p class="sub">The remote HTTPS MCPs are declared in <code>.mcp.json</code> and sign in on first use. The Ableton MCP is configured locally. Ableton Knowledge is a Claude Desktop extension.</p>
+        <div class="grid g3">
+        <div class="card"><span class="tag">Local MCP, installed separately</span><h3>Ableton</h3><p>Drive Live directly: tempo, tracks, devices, clips, locators.</p></div>
+        <div class="card"><span class="tag">Official</span><h3>Splice</h3><p>Sound search, stack building, downloads.</p><code class="url">https://mcp.splice.com/mcp</code></div>
+        <div class="card"><span class="tag">Official</span><h3>Spotify</h3><p>References, audio features (BPM and key), playlists.</p><code class="url">https://mcp-gateway-external-pilot.spotify.net/mcp</code></div>
+        <div class="card"><span class="tag">By Google</span><h3>Google Drive</h3><p>Search, read and upload stems, references and masters.</p><code class="url">https://drivemcp.googleapis.com/mcp/v1</code></div>
+        <div class="card"><span class="tag">By Google</span><h3>Gmail</h3><p>Draft promo, label and mastering hand-off emails.</p><code class="url">https://gmailmcp.googleapis.com/mcp/v1</code></div>
+        <div class="card"><span class="tag">By Google</span><h3>Google Calendar</h3><p>Schedule the release-day timeline.</p><code class="url">https://calendarmcp.googleapis.com/mcp/v1</code></div>
+        <div class="card"><span class="tag">Official</span><h3>Canva</h3><p>Cover art templates and release moodboards.</p><code class="url">https://mcp.canva.com/mcp</code></div>
+        <div class="card"><span class="tag">Desktop extension</span><h3>Ableton Knowledge</h3><p>Search the Live, Push, Move and Note manuals, the knowledge base and video transcripts. Runs on your machine.</p></div>
+        </div>
+        <h3 style="margin-top:2.5rem">Add them in the Claude app</h3>
+        <p class="sub">The plugin itself runs in Claude Code. The connectors can also be added directly in Claude on the web or desktop.</p>
+        <ol class="steps">
+          <li>Open Claude and go to <strong>Settings, Connectors</strong>.</li>
+          <li>Choose <strong>Add custom connector</strong>, or pick one from the directory where it is listed.</li>
+          <li>Paste the connector URL above and sign in.</li>
+          <li>In Claude Desktop, install the <strong>Ableton Knowledge</strong> extension separately under Settings, Extensions.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="codex">
+      <div class="wrap">
+        <p class="eyebrow">Codex CLI</p>
+        <h2>Same connectors, in Codex.</h2>
+        <p class="sub">Codex has no plugin marketplace but it speaks MCP. Paste this block into <code>~/.codex/config.toml</code> to get the same 6 remote connectors. Local Ableton control is configured separately. The slash commands and skills are specific to Claude Code, so in Codex describe what you want.</p>
+        <div class="term">
+          <div class="head">~/.codex/config.toml</div>
+<pre><code><span class="cm"># Remote connectors: sign in on first use</span>
 [mcp_servers.splice]
 url = "https://mcp.splice.com/mcp"
 
@@ -383,188 +201,24 @@ url = "https://calendarmcp.googleapis.com/mcp/v1"
 
 [mcp_servers.canva]
 url = "https://mcp.canva.com/mcp"</code></pre>
+        </div>
+        <p class="sub" style="margin-top:1.25rem">Or run <code>codex mcp add --url &lt;url&gt; &lt;name&gt;</code> for each one. Needs a Codex CLI with streamable HTTP MCP support. Full file: <a href="https://github.com/patrickking67/producer/blob/main/plugins/producer/codex-config.toml">plugins/producer/codex-config.toml</a>.</p>
       </div>
-
-      <p data-reveal class="mt-6 text-sm opacity-70 max-w-3xl">
-        Or run <code class="font-mono text-xs px-1.5 py-0.5 rounded bg-ink/5 dark:bg-paper/5">codex mcp add --url &lt;url&gt; &lt;name&gt;</code> for each cloud MCP to register interactively. Requires a Codex CLI with streamable HTTP MCP support. Full snippet: <a class="underline underline-offset-4" href="https://github.com/patrickking67/producer/blob/main/plugins/producer/codex-config.toml">plugins/producer/codex-config.toml</a>.
-      </p>
-    </div>
-  </section>
-
-  <!-- commands -->
-  <section id="commands" class="border-b border-black/10 dark:border-white/10">
-    <div class="max-w-6xl mx-auto px-6 py-20">
-      <h2 data-reveal class="text-3xl md:text-4xl font-extrabold tracking-tight">12 slash commands.</h2>
-      <p data-reveal class="mt-3 opacity-70 max-w-2xl">Each maps to a skill that auto-triggers from natural language too. Just describe what you want.</p>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3 mt-10">
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40 hover:bg-ink/[0.03] dark:hover:bg-paper/[0.03]">
-          <code class="font-mono text-sm font-bold">/review</code>
-          <p class="mt-2 text-sm opacity-80">Peer-level teardown of a track, loop, or arrangement.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40 hover:bg-ink/[0.03] dark:hover:bg-paper/[0.03]">
-          <code class="font-mono text-sm font-bold">/brainstorm</code>
-          <p class="mt-2 text-sm opacity-80">3-5 distinct creative directions, each with a reference.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40 hover:bg-ink/[0.03] dark:hover:bg-paper/[0.03]">
-          <code class="font-mono text-sm font-bold">/midi</code>
-          <p class="mt-2 text-sm opacity-80">Chord progressions, basslines, drum patterns, melodies → <code>.mid</code>.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40 hover:bg-ink/[0.03] dark:hover:bg-paper/[0.03]">
-          <code class="font-mono text-sm font-bold">/sound</code>
-          <p class="mt-2 text-sm opacity-80">Patch recipes for stock Ableton devices + Splice fallback.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40 hover:bg-ink/[0.03] dark:hover:bg-paper/[0.03]">
-          <code class="font-mono text-sm font-bold">/mix</code>
-          <p class="mt-2 text-sm opacity-80">Mix and master moves: LUFS, sidechain, low-end glue, references.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40 hover:bg-ink/[0.03] dark:hover:bg-paper/[0.03]">
-          <code class="font-mono text-sm font-bold">/docs</code>
-          <p class="mt-2 text-sm opacity-80">Surgical lookups in Live / Push / Move / Note manuals + KB.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40 hover:bg-ink/[0.03] dark:hover:bg-paper/[0.03]">
-          <code class="font-mono text-sm font-bold">/library</code>
-          <p class="mt-2 text-sm opacity-80">Browse your User Library + Packs like Live's left-hand browser.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40 hover:bg-ink/[0.03] dark:hover:bg-paper/[0.03]">
-          <code class="font-mono text-sm font-bold">/arrange</code>
-          <p class="mt-2 text-sm opacity-80">Bar-by-bar arrangement coach: energy curve, section moves.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40 hover:bg-ink/[0.03] dark:hover:bg-paper/[0.03]">
-          <code class="font-mono text-sm font-bold">/reference</code>
-          <p class="mt-2 text-sm opacity-80">Build a Spotify reference playlist with BPM, key, and loudness notes.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40 hover:bg-ink/[0.03] dark:hover:bg-paper/[0.03]">
-          <code class="font-mono text-sm font-bold">/stems</code>
-          <p class="mt-2 text-sm opacity-80">Prep stems for mastering, remix, sync, DJ tools, live.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40 hover:bg-ink/[0.03] dark:hover:bg-paper/[0.03]">
-          <code class="font-mono text-sm font-bold">/release</code>
-          <p class="mt-2 text-sm opacity-80">Master target, metadata, artwork, ISRC, release-day schedule.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40 hover:bg-ink/[0.03] dark:hover:bg-paper/[0.03]">
-          <code class="font-mono text-sm font-bold">/session</code>
-          <p class="mt-2 text-sm opacity-80">Drive Live directly: create tracks, load presets, fire clips.</p>
-        </div>
-      </div>
-
-      <div data-reveal class="mt-12 rounded-2xl border border-ink/15 dark:border-paper/15 p-8 bg-ink/[0.02] dark:bg-paper/[0.02] card-lift">
-        <div class="text-xs font-mono uppercase tracking-widest opacity-60">Agent</div>
-        <h3 class="mt-2 text-xl font-bold tracking-tight">ableton-engineer</h3>
-        <p class="mt-3 opacity-80">End-to-end multi-step tasks: <em>"build me a tech house starter set", "prep this for release across streaming and Beatport", "compare my track to 5 references and write the mix moves"</em>. Reads session state, calls the right skills in order, files artifacts, returns a one-paragraph status.</p>
-      </div>
-      <a data-reveal href="https://github.com/patrickking67/producer/blob/main/examples/README.md" class="mt-7 inline-flex items-center gap-2 px-5 py-3 rounded-full border border-ink/20 dark:border-paper/20 font-semibold text-sm transition-transform hover:-translate-y-0.5">Read four complete workflows →</a>
-    </div>
-  </section>
-
-  <!-- connectors -->
-  <section id="connectors" class="border-b border-black/10 dark:border-white/10">
-    <div class="max-w-6xl mx-auto px-6 py-20">
-      <h2 data-reveal class="text-3xl md:text-4xl font-extrabold tracking-tight">6 remote connectors + local Ableton control.</h2>
-      <p data-reveal class="mt-3 opacity-70 max-w-2xl">Remote HTTPS MCPs are wired into <code class="font-mono text-xs px-1.5 py-0.5 rounded bg-ink/5 dark:bg-paper/5">.mcp.json</code> and OAuth on first use. Ableton MCP is configured locally. Ableton Knowledge is a Claude Desktop extension.</p>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-3 mt-10">
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40">
-          <div class="font-bold">Ableton</div>
-          <p class="mt-1 text-sm opacity-80">Drive Live directly: tempo, tracks, devices, clips, locators.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40">
-          <div class="font-bold">Splice</div>
-          <p class="mt-1 text-sm opacity-80">Sample discovery, stack building, downloads.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40">
-          <div class="font-bold">Spotify</div>
-          <p class="mt-1 text-sm opacity-80">References, audio features (BPM/key), playlists.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40">
-          <div class="font-bold">Google Drive</div>
-          <p class="mt-1 text-sm opacity-80">Upload stems, masters, reference notes, release packages.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40">
-          <div class="font-bold">Gmail</div>
-          <p class="mt-1 text-sm opacity-80">Draft promo / label / mastering hand-off emails.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40">
-          <div class="font-bold">Google Calendar</div>
-          <p class="mt-1 text-sm opacity-80">Schedule release-day timeline.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40">
-          <div class="font-bold">Canva</div>
-          <p class="mt-1 text-sm opacity-80">Cover art templates and release moodboards.</p>
-        </div>
-        <div data-reveal class="cmd-tile rounded-xl border border-ink/15 dark:border-paper/15 p-5 hover:border-ink/40 dark:hover:border-paper/40">
-          <div class="font-bold">Ableton Knowledge <span class="text-[10px] font-mono uppercase tracking-widest opacity-70">ext</span></div>
-          <p class="mt-1 text-sm opacity-80">Search Live / Push / Move / Note manuals, KB, video transcripts. Local-only.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- quick taste -->
-  <section class="border-b border-black/10 dark:border-white/10">
-    <div class="max-w-6xl mx-auto px-6 py-20">
-      <h2 data-reveal class="text-3xl md:text-4xl font-extrabold tracking-tight">Quick taste.</h2>
-      <p data-reveal class="mt-3 opacity-70 max-w-2xl">Or just describe what you want: Producer routes to the right skill.</p>
-      <div data-reveal class="mt-10 rounded-2xl border border-ink/15 dark:border-paper/15 overflow-hidden">
-        <pre class="p-6 font-mono text-sm leading-relaxed overflow-x-auto bg-ink/[0.02] dark:bg-paper/[0.02]"><code>&gt; /brainstorm I'm stuck on the second drop of my tech house track in F minor at 126
-&gt; /midi 4-bar tech house bassline in F minor, 126 bpm, dark, swung
-&gt; /sound make me a Drum Rack kick: punchy 60 Hz, like Innervisions
-&gt; /library find me a Wavetable pad preset for a moody breakdown
-&gt; /arrange draft the full 6-minute arrangement for the loop I just imported
-&gt; /reference build me 10 references for a Beatport-bound tech house EP
-&gt; /mix my drop dies in the car
-&gt; /stems prep stems for my mastering engineer
-&gt; /release prep this for a Beatport release on July 25
-&gt; /session set BPM to 126, create 4 MIDI tracks, load my favourite drum rack</code></pre>
-      </div>
-    </div>
-  </section>
-
+    </section>
   </main>
 
-  <!-- footer -->
-  <footer class="py-14">
-    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row gap-6 md:items-center md:justify-between">
-      <div class="flex flex-wrap items-center gap-3">
-        <svg viewBox="0 0 64 64" class="w-7 h-7" fill="currentColor" aria-hidden="true">
-          <rect x="8"  y="10" width="40" height="8" rx="1"/>
-          <rect x="8"  y="22" width="48" height="8" rx="1"/>
-          <rect x="8"  y="34" width="28" height="8" rx="1"/>
-          <rect x="8"  y="46" width="44" height="8" rx="1"/>
-        </svg>
-        <span class="font-extrabold tracking-tight">Producer</span>
-        <span class="text-sm opacity-70">Created by Patrick King. MIT licensed.</span>
-      </div>
-      <div class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
-        <a href="https://github.com/patrickking67/producer" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">GitHub</a>
-        <a href="https://github.com/patrickking67/producer/blob/main/plugins/producer/CONNECTORS.md" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">Connectors</a>
-        <a href="https://github.com/patrickking67/producer/blob/main/max-for-live/README.md" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">For Live</a>
-        <a href="https://github.com/patrickking67/producer/blob/main/LICENSE" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">License</a>
-        <a href="llms.txt" class="hover:underline underline-offset-4 transition-opacity hover:opacity-80">llms.txt</a>
-      </div>
+  <footer>
+    <div class="wrap">
+      <span>Producer. Created by Patrick King. MIT licensed.</span>
+      <nav aria-label="Footer">
+        <a href="https://github.com/patrickking67/producer">GitHub</a>
+        <a href="https://github.com/patrickking67/producer/blob/main/plugins/producer/CONNECTORS.md">Connectors</a>
+        <a href="https://github.com/patrickking67/producer/blob/main/max-for-live/README.md">For Live</a>
+        <a href="https://github.com/patrickking67/producer/blob/main/LICENSE">License</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="llms.txt">llms.txt</a>
+      </nav>
     </div>
   </footer>
-
-  <!-- scroll-reveal observer -->
-  <script>
-    (function () {
-      if (!('IntersectionObserver' in window)) {
-        document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('is-visible'));
-        return;
-      }
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach((entry, i) => {
-          if (entry.isIntersecting) {
-            // small stagger inside batches
-            entry.target.style.transitionDelay = (i * 60) + 'ms';
-            entry.target.classList.add('is-visible');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-      document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el));
-    })();
-  </script>
-
 </body>
 </html>

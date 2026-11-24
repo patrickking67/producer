@@ -6,7 +6,7 @@ Producer is an Ableton Live production toolkit distributed as a Claude Code mark
 
 - Plugin: Markdown skills, commands and one agent with YAML frontmatter, JSON manifests, `.mcp.json` with remote HTTPS servers only.
 - Max for Live: plain JavaScript run by Max (`max-for-live/*.js`). No build step.
-- Site: one static `docs/index.html` using the Tailwind Play CDN (pinned). No build step.
+- Site: static `docs/index.html` and `docs/site.css`, hand-written, no scripts, no CDN, no web fonts. No build step.
 - Tooling: Python 3.11+ and bash scripts, Node for `node --check`, and the `claude` CLI for strict manifest validation. `package.json` only names scripts and has no dependencies.
 
 ## Layout

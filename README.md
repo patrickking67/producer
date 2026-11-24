@@ -94,7 +94,9 @@ producer/
 │   ├── producer-logo.svg         ← wordmark + mark (monochrome)
 │   └── producer-mark.svg         ← icon only (square)
 ├── docs/                         ← GitHub Pages site (published as-is)
-│   ├── index.html                ← landing page (Tailwind Play CDN)
+│   ├── index.html                ← landing page (static HTML and CSS)
+│   ├── site.css                  ← site styles
+│   ├── privacy.html              ← privacy policy
 │   ├── llms.txt                  ← same as the root llms.txt
 │   └── og.png                    ← share image
 ├── plugins/
